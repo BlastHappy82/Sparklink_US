@@ -1,26 +1,22 @@
-# 键盘SDK文档
+# Keyboard SDK Documentation
 
-由于浏览器安全机制问题在调用sdk时候需要走的是hid协议，所以在最开始需要进行浏览器授权，授权成功后才能调用sdk。
+Because of browser security mechanisms, the SDK communicates over the HID protocol. You must grant browser permission before calling the SDK.
 
-## 开始
+## Getting Started
 
-### 引入
-
+### Install
 ```bash
-pnpm add  @sparklinkplayjoy/sdk-keyboard
-
+pnpm add @sparklinkplayjoy/sdk-keyboard
 ```
 
-## 搭建项目
+## Project Setup
 
-### 项目引用
-
-1. 引入
-
+### Integrate into your project
+1. Import
 ```js
 import Keyboard from '@sparklinkplayjoy/sdk-keyboard'
-const vendorId = 00 // you vid 
-const productId = 00 // you pid 
+const vendorId = 00 // your VID
+const productId = 00 // your PID
 const ServiceKeyboard = new Keyboard({
   configs: [{ vendorId, productId, usagePage: 65440, usage: 1 }],
   usage: 1,
@@ -28,45 +24,42 @@ const ServiceKeyboard = new Keyboard({
 });
 ```
 
-2. 获取授权
-
+2. Request authorization
 ```js
-// 得到当前的设置列表
+// Get the current device list
 const devices = await ServiceKeyboard.getDevices()
 ```
 
-3. 初始化设备
-
+3. Initialize a device
 ```js
-// 从当前设备列表中获取其中一个设备
+// Pick one device from the list
 const { id } = devices[0]
 const result = await ServiceKeyboard.init(id)
 ```
 
-4. 监听hid拔插事件
-
+4. Listen for HID plug/unplug events
 ```js
 services.on("usbChange", (data) => {
-          const { device } = data;
+  const { device } = data;
 
-          if (data.type === 'disconnect' || data.type === 'isUpgrading_disconnect') {
-          }
-          if (data.type === 'connect' || (data.type === 'isUpgrading_connect' && data.reconnect)) {
-            if (device?.collections?.length) {
-              try {
-                const targetCollection = device.collections.find(
-                  (collection) => collection.usage === 1 && collection.usagePage === 0xffb0,
-                );
+  if (data.type === 'disconnect' || data.type === 'isUpgrading_disconnect') {
+  }
+  if (data.type === 'connect' || (data.type === 'isUpgrading_connect' && data.reconnect)) {
+    if (device?.collections?.length) {
+      try {
+        const targetCollection = device.collections.find(
+          (collection) => collection.usage === 1 && collection.usagePage === 0xffb0,
+        );
 
-                if (targetCollection) {
-                 
-                }
-              } catch (error) {
-                
-              }
-            } 
-          }
-        });
+        if (targetCollection) {
 
-services.off('usbChange',listener) // 移除监听
+        }
+      } catch (error) {
+
+      }
+    }
+  }
+});
+
+services.off('usbChange', listener) // remove listener
 ```
