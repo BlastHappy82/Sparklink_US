@@ -1,514 +1,514 @@
-# 基础的设备信息
+# Basic equipment information
 
-## 获取设备列表
+## Get the device list
 
 ServiceKeyboard.getDevices()
 
-**简要描述:**
-获取连接到系统的设备列表。
+**Brief description:**
+Get a list of devices connected to the system.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<Device[]>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个 `Device` 对象数组。每个 `Device` 对象代表一个已连接的键盘设备。
-* **解析对象结构 (`Device`):**
-
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `data` | `object` | 设备数据对象 | - |
-| `data.id` | `string` | 设备ID | `"b1545667-777b-4a8a-9640-1c000a56b5e7"` |
-| `id` | `string` | 设备唯一标识符 | `"b1545667-777b-4a8a-9640-1c000a56b5e7"` |
-| `usage` | `number` | 设备用途值 | `1` |
-| `usagePage` | `number` | 设备用途页值 | `65440` |
-| `vendorId` | `number` | 厂商ID | `7331` |
-| `productId` | `number` | 产品ID | `2049` |
-| `productName` | `string` | 产品名称 | `"ET65 HE"` |
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<Device[]>`
+- **Description:** Returns a `Promise`, which resolves to an array of `Device` objects.Each `Device` object represents a connected keyboard device.
+- **Resolve object structure (`Device`):**
+
+| Field Name    | Type     | Description              | Sample Value                             |
+| ------------- | -------- | ------------------------ | ---------------------------------------- |
+| `data`        | `object` | Device data object       | -                                        |
+| `data.id`     | `string` | Device ID                | `"b1545667-777b-4a8a-9640-1c000a56b5e7"` |
+| `id`          | `string` | Device Unique Identifier | `"b1545667-777b-4a8a-9640-1c000a56b5e7"` |
+| `usage`       | `number` | Equipment usage value    | `1`                                      |
+| `usagePage`   | `number` | Device usage page value  | `65440`                                  |
+| `vendorId`    | `number` | vendor ID                | `7331`                                   |
+| `productId`   | `number` | Product ID               | `2049`                                   |
+| `productName` | `string` | Product Name             | `"ET65 HE"`                              |
+
+---
+
+### Example of usage
 
 ```js
 async function fetchDevices() {
   try {
     const devices = await ServiceKeyboard.getDevices();
-    console.log('发现的设备:', devices);
+    console.log('Discovered devices:', devices);
     if (devices.length > 0) {
-      // 对设备列表进行操作，例如选择第一个设备进行初始化
+      // Operate on the device list, such as selecting the first device for initialization
       // const firstDevice = devices[0];
       // await ServiceKeyboard.init(firstDevice.id);
     } else {
-      console.log('未检测到设备。');
+      console.log('No device detected.');
     }
   } catch (error) {
-    console.error('获取设备列表失败:', error);
+    console.error('Failed to get the device list:', error);
   }
 }
 
 fetchDevices();
 ```
 
-## 初始化指定的键盘设备
+## Initialize the specified keyboard device
 
 ServiceKeyboard.init()
 
-**简要描述:**
-初始化指定的键盘设备，以便后续进行交互。
+**Brief description:**
+Initializes the specified keyboard device for subsequent interaction.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                     | 是否必需 | 默认值 |
-|----------|----------|--------------------------|----------|--------|
-| `id`     | `string` | 要初始化的设备的唯一标识符。可从`ServiceKeyboard.getDevices()`获取 | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<Device | null>`
-* **描述:** 返回一个 `Promise`。
-  * **Promise 解析 (Resolves):** `Device` - 设备初始化成功时，解析为该设备的 `Device` 对象。
-  * **Promise 解析 (Resolves):** `null` - 设备初始化失败或未找到指定设备时，解析为 `null`。
-* **解析对象结构 (`Device`):**
-  * 关于 `Device` 对象的详细结构，请 [查看Device的类型](/keyboard/model#设备)。
+| Parameter name | Type     | Description                                                                                     | Required | Default |
+| -------------- | -------- | ----------------------------------------------------------------------------------------------- | -------- | ------- |
+| `id`           | `string` | Unique identifier of the device to be initialized.Available from `ServiceKeyboard.getDevices()` | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<Device | null>`
+- **Description:** Returns a `Promise`.
+- **Promise resolution (Resolves):** `Device` - When the device is initialized successfully, it resolves to the `Device` object of the device.
+- **Promise resolution (Resolves):** `null` - Resolves to `null` when device initialization fails or the specified device is not found.
+- **Resolve object structure (`Device`):**
+- For the detailed structure of the `Device` object, please [View Device Type] (/keyboard/model# device).
+
+---
+
+### Example of usage
 
 ```js
 async function initializeDevice(deviceId: string) {
   try {
     const device = await ServiceKeyboard.init(deviceId);
     if (device) {
-      console.log('设备初始化成功:', device);
-      // 现在可以使用 device 对象与设备进行交互
-      // const deviceInfo = await ServiceKeyboard.getDevicesInfo(); 
+console.log('device initialization successfully:', device);
+// You can now use the device object to interact with the device
+      // const deviceInfo = await ServiceKeyboard.getDevicesInfo();
     } else {
-      console.log('设备初始化失败或未找到设备。');
+console.log('Default in device initialization or device not found.');
     }
   } catch (error) {
-    console.error('初始化设备时发生错误:', error);
+console.error('An error occurred while initializing the device:', error);
   }
 }
 
-// deviceId 是从 getDevices() 获取到的
+// deviceId is obtained from getDevices()
 // const exampleDeviceId = "some_device_id_string";
 // initializeDevice(exampleDeviceId);
 ```
 
-## 获取设备的基础硬件和固件信息
+## Obtain basic hardware and firmware information of the device
 
 ServiceKeyboard.getDevicesInfo()
 
-**简要描述:**
-获取当前已初始化设备的基础硬件和固件信息。
+**Brief description:**
+Gets the basic hardware and firmware information of the currently initialized device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数 (通常在成功调用 `ServiceKeyboard.init()` 后使用)。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<BaseInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含设备基础信息的 `BaseInfo` 对象。
-* **解析对象结构 (`BaseInfo`):**
-
-| 字段名称          | 类型     | 描述                     | 示例值  |
-|-------------------|----------|--------------------------|---------------|
-| `type`            | `number` | 设备类型。               | `1`           |
-| `subType`         | `number` | 设备子类型。             | `0`           |
-| `boardId`         | `number` | 板卡ID。                 | `3145729`     |
-| `appVersion`      | `string` | 固件的应用版本号。       | `'1.0.1.0'`   |
-| `pcbVersion`      | `string` | PCB版本号。              | `'1-0-0-0'`   |
-| `runModeVersion`  | `number` | 运行模式版本。           | `0`           |
-| `sn`              | `string` | 键盘的序列号。           | `'54817806657765148212547'` |
-| `timestamp`       | `string` | 时间戳。                 | `'2025052215:4'` |
+This method requires no parameters (usually after a successful call to `ServiceKeyboard.init()`).
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<BaseInfo>`
+- **Description:** Returns a `Promise`, which resolves to a `BaseInfo` object containing the basic information of the device.
+- **Resolve object structure (`BaseInfo`):**
+
+| Field Name       | Type     | Description                                 | Sample Value                |
+| ---------------- | -------- | ------------------------------------------- | --------------------------- |
+| `type`           | `number` | Device type.                                | `1`                         |
+| `subType`        | `number` | Device subtype.                             | `0`                         |
+| `boardId`        | `number` | Board ID.                                   | `3145729`                   |
+| `appVersion`     | `string` | Application version number of the firmware. | `'1.0.1.0'`                 |
+| `pcbVersion`     | `string` | PCB version number.                         | `'1-0-0-0'`                 |
+| `runModeVersion` | `number` | Run Mode Version.                           | `0`                         |
+| `sn`             | `string` | The serial number of the keyboard.          | `'54817806657765148212547'` |
+| `timestamp`      | `string` | timestamp.                                  | `'2025052215:4'`            |
+
+---
+
+### Example of usage
 
 ```js
 async function fetchBaseDeviceInfo() {
   try {
-    // 确保设备已初始化
+    // Make sure the device is initialized
     // await ServiceKeyboard.init(deviceId);
     const baseInfo = await ServiceKeyboard.getDevicesInfo();
-    console.log('设备基础信息:', baseInfo);
-    // console.log('固件版本:', baseInfo.appVersion);
+    console.log('Basic information of the device:', baseInfo);
+    // console.log('Firmware version:', baseInfo.appVersion);
   } catch (error) {
-    console.error('获取设备基础信息失败:', error);
+    console.error('Failed to obtain the basic information of the device:', error);
   }
 }
 
-// fetchBaseDeviceInfo(); // 需在设备初始化后调用
+// fetchBaseDeviceInfo(); // Need to be called after device initialization
 ```
 
-## 获取协议版本
+## Get the protocol version
 
 ServiceKeyboard.getProtocolVersion()
 
-**简要描述:**
-获取键盘设备的协议版本信息。
+**Brief description:**
+Get the protocol version information of the keyboard device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<ProtocolVersion>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含协议版本信息的对象。
-* **解析对象结构 (`ProtocolVersion`):**
-
-| 字段名称          | 类型     | 描述                     | 示例值  |
-|-------------------|----------|--------------------------|---------|
-| `mainVersion`     | `number` | 主版本号。               | `1`     |
-| `subVersion`      | `number` | 子版本号。               | `0`     |
-| `hardwareVersion` | `number` | 硬件版本号。             | `1`     |
-| `softwareVersion` | `number` | 软件版本号。             | `0`     |
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<ProtocolVersion>`
+- **Description:** Returns a `Promise`, which resolves to an object containing protocol version information.
+- **Resolve object structure (`ProtocolVersion`):**
+
+| Field Name        | Type     | Description              | Sample Value |
+| ----------------- | -------- | ------------------------ | ------------ |
+| `mainVersion`     | `number` | Major version number.    | `1`          |
+| `subVersion`      | `number` | subversion number.       | `0`          |
+| `hardwareVersion` | `number` | hardware version number. | `1`          |
+| `softwareVersion` | `number` | software version number. | `0`          |
+
+---
+
+### Example of usage
 
 ```js
 async function fetchProtocolVersion() {
   try {
     const versionInfo = await ServiceKeyboard.getProtocolVersion();
-    console.log('协议版本信息:', versionInfo);
+    console.log('Protocol version information:', versionInfo);
   } catch (error) {
-    console.error('获取协议版本信息失败:', error);
+    console.error('Failed to obtain protocol version information:', error);
   }
 }
 
 // fetchProtocolVersion();
 ```
 
-## 获取配置列表
+## Get the configuration list
 
 ServiceKeyboard.getConfigList()
 
-**简要描述:**
-获取键盘可用的配置列表信息。
+**Brief description:**
+Get information about the configuration list available on the keyboard.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<ConfigList>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含配置列表信息的对象。
-* **解析对象结构 (`ConfigList`):**
-
-| 字段名称 | 类型     | 描述                     | 示例值  |
-|----------|----------|--------------------------|---------|
-| `total`  | `number` | 配置总数。               | `4`     |
-| `list`   | `string[]` | 配置名称列表。         | `['Config1', 'Config2', 'Config3', 'Config4']` |
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<ConfigList>`
+- **Description:** Returns a `Promise`, which resolves to an object containing configuration list information.
+- **Resolve object structure (`ConfigList`):**
+
+| Field Name | Type       | Description                     | Sample Value                                   |
+| ---------- | ---------- | ------------------------------- | ---------------------------------------------- |
+| `total`    | `number`   | Total number of configurations. | `4`                                            |
+| `list`     | `string[]` | Configure name list.            | `['Config1', 'Config2', 'Config3', 'Config4']` |
+
+---
+
+### Example of usage
 
 ```js
 async function fetchConfigList() {
   try {
     const configList = await ServiceKeyboard.getConfigList();
-    console.log('配置列表:', configList);
-    console.log('配置总数:', configList.total);
-    console.log('配置名称列表:', configList.list);
+    console.log('Configuration List:', configList);
+    console.log('Total number of configurations:', configList.total);
+    console.log('Configuration name list:', configList.list);
   } catch (error) {
-    console.error('获取配置列表失败:', error);
+    console.error('Failed to get configuration list:', error);
   }
 }
 
 // fetchConfigList();
 ```
 
-## 获取当前配置
+## Get the current configuration
 
 ServiceKeyboard.getConfig()
 
-**简要描述:**
-获取键盘当前使用的配置信息。
+**Brief description:**
+Gets the configuration information currently used by the keyboard.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<Config>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含当前配置信息的对象。
-* **解析对象结构 (`Config`):**
-
-| 字段名称 | 类型     | 描述                     | 示例值  |
-|----------|----------|--------------------------|---------|
-| `key`    | `string` | 当前配置的名称。         | `'Config2'` |
-| `value`  | `number` | 当前配置的索引值。       | `1`     |
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<Config>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the current configuration information.
+- **Resolve object structure (`Config`):**
+
+| Field Name | Type     | Description                            | Sample Value |
+| ---------- | -------- | -------------------------------------- | ------------ |
+| `key`      | `string` | The name of the current configuration. | `'Config2'`  |
+| `value`    | `number` | The index value currently configured.  | `1`          |
+
+---
+
+### Example of usage
 
 ```js
 async function fetchCurrentConfig() {
   try {
     const config = await ServiceKeyboard.getConfig();
-    console.log('当前配置名称:', config.key);
-    console.log('当前配置索引:', config.value);
+    console.log('Current configuration name:', config.key);
+    console.log('Current configuration index:', config.value);
   } catch (error) {
-    console.error('获取当前配置失败:', error);
+    console.error('Failed to get the current configuration:', error);
   }
 }
 
 // fetchCurrentConfig();
 ```
 
-## 设置当前配置
+## Set the current configuration
 
 ServiceKeyboard.setConfig()
 
-**简要描述:**
-设置键盘当前使用的配置。
+**Brief description:**
+Sets the configuration currently used by the keyboard.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                     | 是否必需 | 默认值 |
-|----------|----------|--------------------------|----------|--------|
-| `config` | `string` | 要设置的配置名称。       | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 返回一个 `Promise`。操作成功完成时，`Promise` 解析，无特定返回值。如果设置失败，`Promise` 会拒绝并返回一个错误。
+| Parameter name | Type     | Description                       | Required | Default |
+| -------------- | -------- | --------------------------------- | -------- | ------- |
+| `config`       | `string` | The configuration name to be set. | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Returns a `Promise`.When the operation is successfully completed, `Promise` is parsed and there is no specific return value.If the setting fails, `Promise` will reject and return an error.
+
+---
+
+### Example of usage
 
 ```js
 async function setCurrentConfig(configName) {
   try {
     await ServiceKeyboard.setConfig(configName);
-    console.log(`已切换到配置: ${configName}`);
+    console.log(`Switched to configuration: ${configName}`);
   } catch (error) {
-    console.error('设置配置失败:', error);
+    console.error('Setting configuration failed:', error);
   }
 }
 
-// 示例：切换到 Config1
+// Example: Switch to Config1
 // setCurrentConfig('Config1');
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* `index`: 配置索引值必须在1到4之间。
-* 切换配置后，建议监听 `getCmd` 事件来获取配置切换的结果。
-* 在收到配置切换成功的通知后，通常需要重新获取以下数据：
-  * 键盘配置信息
-  * 灯光设置
-  * 按键映射
-  * 其他相关设置
-* 建议在配置切换过程中显示加载状态，以提供更好的用户体验。
-:::
+- `index`: The configuration index value must be between 1 and 4.
+- After switching configuration, it is recommended to listen to the `getCmd` event to get the result of the configuration switching.
+- After receiving a notification that the configuration switch is successful, the following data is usually required:
+- Keyboard configuration information
+- Lighting settings
+- Key Mapping
+- Other related settings
+- It is recommended to display load status during configuration switching to provide a better user experience.
+  :::
 
-## 获取配置名称
+## Get the configuration name
 
 ServiceKeyboard.getConfigName(index)
 
-**简要描述:**
-根据配置索引获取配置名称。
+**Brief description:**
+Get the configuration name according to the configuration index.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述               | 是否必需 | 默认值 |
-|----------|----------|--------------------|----------|--------|
-| `index`  | `number` | 配置索引（1-4）。  | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<string>`
-* **描述:** 返回该索引对应的配置名称。
+| Parameter name | Type     | Description                | Required | Default |
+| -------------- | -------- | -------------------------- | -------- | ------- |
+| `index`        | `number` | Configuration index (1-4). | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<string>`
+- **Description:** Returns the configuration name corresponding to this index.
+
+---
+
+### Example of usage
 
 ```js
 async function fetchConfigName(index) {
-  // 需协议版本 >= v1.0.3.0（可通过 ServiceKeyboard.getProtocolVersion 校验）
+  //Requires protocol version >= v1.0.3.0 (can pass ServiceKeyboard.getProtocolVersion verification)
   const name = await ServiceKeyboard.getConfigName(index);
-  console.log('配置名称:', name);
+  console.log('Configuration name:', name);
   return name;
 }
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.3.0`。
-* 协议版本可通过 `ServiceKeyboard.getProtocolVersion()` 获取。
-* `index` 建议传入有效范围（通常 1-4）。
-::::
+- The device protocol version is required to be at least `v1.0.3.0`.
+- The protocol version can be obtained through `ServiceKeyboard.getProtocolVersion()`.
+- `index` is recommended to pass in a valid range (usually 1-4).
+  ::::
 
-## 设置配置名称
+## Set the configuration name
 
 ServiceKeyboard.setConfigName(index, name)
 
-**简要描述:**
-设置指定配置索引的配置名称。
+**Brief description:**
+Sets the configuration name for the specified configuration index.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述               | 是否必需 | 默认值 |
-|----------|----------|--------------------|----------|--------|
-| `index`  | `number` | 配置索引（1-4）。  | 是       | 无     |
-| `name`   | `string` | 要设置的配置名称。 | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 设置成功解析为 `void`，失败时抛出错误。
+| Parameter name | Type     | Description                       | Required | Default |
+| -------------- | -------- | --------------------------------- | -------- | ------- |
+| `index`        | `number` | Configuration index (1-4).        | Yes      | None    |
+| `name`         | `string` | The configuration name to be set. | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Setting successfully resolves to `void`, and an error is thrown when it fails.
+
+---
+
+### Example of usage
 
 ```js
 async function updateConfigName(index, name) {
-  // 需协议版本 >= v1.0.3.0（可通过 ServiceKeyboard.getProtocolVersion 校验）
+  //Requires protocol version >= v1.0.3.0 (can pass ServiceKeyboard.getProtocolVersion verification)
   await ServiceKeyboard.setConfigName(index, name);
-  console.log(`已设置配置 ${index} 的名称为: ${name}`);
+  console.log(`The name of the configuration ${index} is set is: ${name}`);
 }
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.3.0`。
-* 建议对 `name` 做长度与字符集校验，避免设备端写入失败。
-* 设置后可调用 `ServiceKeyboard.getConfigName(index)` 读取校验。
-::::
+- The device protocol version is required to be at least `v1.0.3.0`.
+- It is recommended to check the length and character set for `name` to avoid failure of writing on the device side.
+- After setting, you can call `ServiceKeyboard.getConfigName(index)` to read the verification.
+  ::::
 
-## 回报率列表查询
+## Return rate list query
 
 ServiceKeyboard.getRateOfReturnList()
 
-**简要描述:**
-获取设备支持的回报率列表。
+**Brief description:**
+Get a list of the rate of return supported by the device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<{ list: string[] }>`
-* **描述:** 返回包含回报率字符串列表，如 `['R8','R16', ...]`。
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<{ list: string[] }>`
+- **Description:** Returns a list of strings containing the rate of return, such as `['R8','R16', ...]`.
+
+---
+
+### Example of usage
 
 ```js
 async function fetchRateOfReturnList() {
-  // 需协议版本 >= v1.0.7.0
+  // Requires protocol version >= v1.0.7.0
   const { list } = await ServiceKeyboard.getRateOfReturnList();
-  // 若需要下拉使用，可转成 {label,value,key}
+  // If you need to pull down, you can convert it to {label,value,key}
   return list.map((rate, index) => ({ label: rate.replace('R', ''), value: index, key: rate }));
 }
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.7.0`。
-* 列表项通常以 `R` 加速率数字的形式返回，例如 `R8KHz`。
-::::
+- The device protocol version is required to be at least `v1.0.7.0`.
+- List items are usually returned as `R` acceleration rate numbers, such as `R8KHz`.
+  ::::
 
-## 获取当前回报率
+## Get the current rate of return
 
 ServiceKeyboard.getRateOfReturn()
 
-**简要描述:**
-获取设备当前使用的回报率索引。
+**Brief description:**
+Gets the current return index of the device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<{ value: number }>`
-* **描述:** 返回当前回报率对应的索引。
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall type:** `Promise<{ value: number }>`
+- **Description:** Returns the index corresponding to the current rate of return.
+
+---
+
+### Example of usage
 
 ```js
 async function fetchCurrentRateOfReturn() {
-  // 需协议版本 >= v1.0.7.0
+  // Requires protocol version >= v1.0.7.0
   const { value } = await ServiceKeyboard.getRateOfReturn();
   return value;
 }
@@ -516,78 +516,78 @@ async function fetchCurrentRateOfReturn() {
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.7.0`。
-* 可结合 `getRateOfReturnList()` 将索引映射到实际显示名称。
-::::
+- The device protocol version is required to be at least `v1.0.7.0`.
+- Intended to map the index to the actual display name in conjunction with `getRateOfReturnList()`.
+  ::::
 
-## 设置回报率
+## Set the rate of return
 
 ServiceKeyboard.setRateOfReturn(value)
 
-**简要描述:**
-设置设备回报率。
+**Brief description:**
+Set the device return rate.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                                 | 是否必需 | 默认值 |
-|----------|----------|--------------------------------------|----------|--------|
-| `value`  | `number` | 目标回报率索引（来自列表的 value 字段）。 | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 设置成功解析为 `void`，失败时抛出错误。
+| Parameter name | Type     | Description                                      | Required | Default |
+| -------------- | -------- | ------------------------------------------------ | -------- | ------- |
+| `value`        | `number` | Target return index (value field from the list). | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Setting successfully resolves to `void`, and an error is thrown when it fails.
+
+---
+
+### Example of usage
 
 ```js
 async function updateRateOfReturn(value) {
-  // 需协议版本 >= v1.0.7.0
+  // Requires protocol version >= v1.0.7.0
   await ServiceKeyboard.setRateOfReturn(value);
 }
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.7.0`。
-* 建议在设置后再次调用 `getRateOfReturn()` 校验结果，或根据需要刷新 UI。
-::::
+- The device protocol version is required to be at least `v1.0.7.0`.
+- It is recommended to call `getRateOfReturn()` again after setting, or refresh the UI as needed.
+  ::::
 
-## 获取 RT 精度
+## Get RT accuracy
 
 ServiceKeyboard.getRtPrecision()
 
-**简要描述:**
-获取设备支持的RT最小精度（步进最小值）。
+**Brief description:**
+Gets the minimum RT accuracy (minimum step) supported by the device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<{ min: number }>`
-* **描述:** 返回最小步进精度，单位与设备定义一致（例如毫秒）。
+- **Overall type:** `Promise<{ min: number }>`
+- **Description:** Returns the minimum step accuracy, the unit is consistent with the device definition (for example, milliseconds).
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -597,155 +597,154 @@ ServiceKeyboard.getRtPrecision()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```js
 async function fetchRtPrecision() {
   const { min } = await ServiceKeyboard.getRtPrecision();
-  console.log('RT精度最小步进:', min);
+  console.log('RT precision minimum step:', min);
   return min;
 }
 ```
 
-## 获取系统睡眠时间（分钟）
+## Get system sleep time (minutes)
 
 ServiceKeyboard.getLightingSleepTime()
 
-**简要描述:**
-获取键盘系统睡眠时间（单位：分钟）。0 表示永不休眠，1 表示 1 分钟，2 表示 2 分钟，依次类推。
+**Brief description:**
+Get the keyboard system sleep time (unit: minutes).0 means never sleeping, 1 means 1 minute, 2 means 2 minutes, and so on.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<number>`
-* **描述:** 返回系统睡眠时间（分钟）。
+- **Overall Type:** `Promise<number>`
+- **Description:** Returns the system sleep time (minutes).
 
-**返回值示例:**
+**Return value example:**
 
 ```js
-3 // 表示 3 分钟
+3; // means 3 minutes
 ```
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```js
 async function fetchLightingSleepTime() {
-  // 需协议版本 >= v1.0.4.0
+  // Requires protocol version >= v1.0.4.0
   const minutes = await ServiceKeyboard.getLightingSleepTime();
-  console.log('系统睡眠时间(分钟):', minutes);
+  console.log('System sleep time (minutes):', minutes);
   return minutes;
 }
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.4.0`。
-* 0 表示永不休眠；正整数表示分钟数。
-::::
+- The device protocol version is required to be at least `v1.0.4.0`.
+- 0 means never sleeping; positive integer means minutes.
+  ::::
 
-## 设置系统睡眠时间（分钟）
+## Set system sleep time (minutes)
 
 ServiceKeyboard.setLightingSleepTime(time)
 
-**简要描述:**
-设置键盘系统睡眠时间（单位：分钟）。0 表示永不休眠，1 表示 1 分钟，2 表示 2 分钟，依次类推。
+**Brief description:**
+Set the sleep time of the keyboard system (unit: minutes).0 means never sleeping, 1 means 1 minute, 2 means 2 minutes, and so on.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                 | 是否必需 | 默认值 |
-|----------|----------|----------------------|----------|--------|
-| `time`   | `number` | 睡眠时间（分钟）。   | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 设置成功解析为 `void`，失败时抛出错误。
+| Parameter name | Type     | Description           | Required | Default |
+| -------------- | -------- | --------------------- | -------- | ------- |
+| `time`         | `number` | Sleep time (minutes). | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Setting successfully resolves to `void`, and an error is thrown when it fails.
+
+---
+
+### Example of usage
 
 ```js
 async function updateLightingSleepTime(time) {
-  // 需协议版本 >= v1.0.4.0
+  // Requires protocol version >= v1.0.4.0
   await ServiceKeyboard.setLightingSleepTime(time);
-  console.log('已设置系统睡眠时间(分钟):', time);
+  console.log('System sleep time (minutes):', time);
 }
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 :::: tip
 
-* 需要设备协议版本至少为 `v1.0.4.0`。
-* 0 表示永不休眠；建议根据需求限制为合理的分钟数范围。
-::::
+- The device protocol version is required to be at least `v1.0.4.0`.
+- 0 means never sleeping; it is recommended to limit the reasonable number of minutes according to the needs.
+  ::::
 
-## 重新连接设备
+## Reconnect the device
 
 ServiceKeyboard.reconnection()
 
-**简要描述:**
-尝试重新连接到指定的设备。
+**Brief description:**
+Try to reconnect to the specified device.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称   | 类型     | 描述                           | 是否必需 | 默认值 |
-|------------|----------|--------------------------------|----------|--------|
-| `device`   | `Device` | 要重新连接的 `Device` 对象实例。 | 是       | 无     |
-| `deviceId` | `string` | 要重新连接的设备的唯一标识符。   | 是       | 无     |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 返回一个 `Promise`。操作成功完成时，`Promise` 解析，无特定返回值。如果重连失败，`Promise` 会拒绝并返回一个错误。
+| Parameter name | Type     | Description                                            | Required | Default |
+| -------------- | -------- | ------------------------------------------------------ | -------- | ------- |
+| `device`       | `Device` | The instance of the `Device` object to be reconnected. | Yes      | None    |
+| `deviceId`     | `string` | Unique identifier of the device to be reconnected.     | Yes      | None    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Returns a `Promise`.When the operation is successfully completed, `Promise` is parsed and there is no specific return value.If the reconnect fails, `Promise` will reject and return an error.
+
+---
+
+### Example of usage
 
 ```js
-
 const listener = async ({ device, type }) => {
   if (type === 'disconnect') {
-    // 设备断开连接
+    // The device is disconnected
     if (device?.collections?.length) {
       try {
         const targetCollection = device.collections.find(
           (collection) => collection.usage === 1 && collection.usagePage === 0xffb0,
         );
         if (targetCollection) {
-          // 处理设备断开连接后的逻辑
+          // Handle the logic after the device is disconnected
         }
       } catch (error) {
-        console.error('设备断开连接处理失败:', error);
+        console.error('device disconnection failed:', error);
       }
     }
-  } 
-  
+  }
+
   if (type === 'connect') {
     if (device?.collections?.length) {
       try {
@@ -753,76 +752,76 @@ const listener = async ({ device, type }) => {
           (collection) => collection.usage === 1 && collection.usagePage === 0xffb0,
         );
         if (targetCollection) {
-          // 处理设备连接后的逻辑
+          // Process the logic after the device is connected
         }
       } catch (error) {
-        console.error('设备连接处理失败:', error);
+        console.error('device connection processing failed:', error);
       }
     }
   }
-}
+};
 
 ServiceKeyboard.on('usbChange', listener);
 
-// 移除监听
+// Remove the monitor
 ServiceKeyboard.off('usbChange', listener);
 
-// 在插拔事件、恢复出厂、升级结束后需要重连
+// Reconnection is required after plug-in and unplug incident, factory reset, upgrade
 ```
 
-## 设备插拔事件
+## Device plug-in and unplug events
 
 ServiceKeyboard.on('usbChange', callback)
 
-**简要描述:**
-监听设备的插拔事件，包括普通连接/断开、升级过程中的连接/断开等状态变化。
+**Brief description:**
+Listen to the plug-in and unplugging events of the device, including normal connection/disconnection, connection/disconnection during upgrade, etc.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称   | 类型     | 描述                           | 是否必需 | 默认值 |
-|------------|----------|--------------------------------|----------|--------|
-| `eventName`| `string` | 事件名称，固定为 'usbChange'    | 是       | 无     |
-| `callback` | `function` | 事件回调函数，接收设备状态变化信息 | 是     | 无     |
-
----
-
-### 回调函数参数
-
-| 参数名称 | 类型     | 描述                           |
-|----------|----------|--------------------------------|
-| `data`   | `object` | 包含设备状态变化信息的对象      |
-| `data.type` | `string` | 事件类型，可能的值包括：<br>- 'connect': 设备连接<br>- 'disconnect': 设备断开<br>- 'isUpgrading_connect': 升级过程中设备连接<br>- 'isUpgrading_disconnect': 升级过程中设备断开 |
-| `data.device` | `Device` | 设备对象，包含设备信息 |
-| `data.updateFail` | `boolean` | 是否是在更新写入数据中更新失败了，比如在更新中过程中拔掉了键盘 |
-| `data.reconnect` | `boolean` | 是否已经重新连接成功 |
+| Parameter name | Type       | Description                                                         | Required | Default |
+| -------------- | ---------- | ------------------------------------------------------------------- | -------- | ------- |
+| `eventName`    | `string`   | Event name, fixed to 'usbChange'                                    | Yes      | None    |
+| `callback`     | `function` | Event callback function, receiving device status change information | Yes      | None    |
 
 ---
 
-### 使用示例
+### Callback function parameters
+
+| Parameter name    | Type      | Description                                                                                                                                                                                                                                 |
+| ----------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`            | `object`  | Object containing device status change information                                                                                                                                                                                          |
+| `data.type`       | `string`  | Event type, possible values ​​include: <br>- 'connect': Device connection<br>- 'disconnect': Device disconnect<br>- 'isUpgrading_connect': Device connection during upgrade<br>- 'isUpgrading_disconnect': Device disconnect during upgrade |
+| `data.device`     | `Device`  | Device object, containing device information                                                                                                                                                                                                |
+| `data.updateFail` | `boolean` | Whether the update failed during update writing data, such as unplugging the keyboard during update                                                                                                                                         |
+| `data.reconnect`  | `boolean` | Whether the reconnect has been successfully                                                                                                                                                                                                 |
+
+---
+
+### Example of usage
 
 ```js
 ServiceKeyboard.on('usbChange', (data) => {
-  console.log('USB设备变化:', data);
+  console.log('USB device changes:', data);
   const { device } = data;
-  
+
   if (data.updateFail) {
-    // 处理更新失败的情况
+    // Handle update failure
   }
-  
+
   if (data.type === 'disconnect' || data.type === 'isUpgrading_disconnect') {
-    // 设备断开连接
+    // The device is disconnected
     if (device?.collections?.length) {
       try {
         const targetCollection = device.collections.find(
           (collection) => collection.usage === 1 && collection.usagePage === 0xffb0,
         );
         if (targetCollection) {
-          // 处理设备断开连接后的逻辑
+          // Handle the logic after the device is disconnected
         }
       } catch (error) {
-        console.error('设备断开连接处理失败:', error);
+        console.error('device disconnection failed:', error);
       }
     }
   }
@@ -834,10 +833,10 @@ ServiceKeyboard.on('usbChange', (data) => {
           (collection) => collection.usage === 1 && collection.usagePage === 0xffb0,
         );
         if (targetCollection) {
-          // 处理设备连接后的逻辑
+          // Process the logic after the device is connected
         }
       } catch (error) {
-        console.error('设备连接处理失败:', error);
+        console.error('device connection processing failed:', error);
       }
     }
   }
@@ -846,52 +845,52 @@ ServiceKeyboard.on('usbChange', (data) => {
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* 在恢复出厂设置、固件升级等操作后，会多次触发设备的插拔事件。
-* 建议在设备连接后重新获取设备信息、配置信息等数据。
-* 在升级过程中的设备断开和重连需要特殊处理，确保升级流程的完整性。
-* 可以通过 `data.updateFail` 判断是否在写入数据中更新失败，进行相应的错误处理。
-* 在插拔事件里已经处理好了设备的自动重连，不需要再调用重连接口了
-:::
+- After factory settings, firmware upgrades, etc., the device plug-in and unplug events will be triggered many times.
+- It is recommended to re-acquire device information, configuration information and other data after the device is connected.
+- Equipment disconnection and reconnection during the upgrade process require special treatment to ensure the integrity of the upgrade process.
+- You can use `data.updateFail` to determine whether the update failed in writing data and perform corresponding error processing.
+- The automatic reconnection of the device has been handled during the plug-in and unplugging event, and there is no need to call the reconnection port anymore.
+  :::
 
-## 进入Bootloader模式
+## Enter Bootloader mode
 
 ServiceKeyboard.appToBoot()
 
-**简要描述:**
-使设备进入 Bootloader 模式，通常用于擦除或准备更新固件。
+**Brief description:**
+Put the device into Bootloader mode, usually used to erase or prepare to update the firmware.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 返回一个 `Promise`。操作成功完成时，`Promise` 解析，无特定返回值。如果操作失败，`Promise` 会拒绝并返回一个错误。
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Returns a `Promise`.When the operation is successfully completed, `Promise` is parsed and there is no specific return value.If the operation fails, `Promise` will reject and return an error.
+
+---
+
+### Example of usage
 
 ```js
 async function enterBootloaderMode() {
   try {
-    // 确保设备已初始化
+    // Make sure the device is initialized
     // await ServiceKeyboard.init(deviceId);
-    console.log('正在尝试使设备进入 Bootloader 模式...');
+    console.log('Trying to get the device into Bootloader mode...');
     await ServiceKeyboard.appToBoot();
-    console.log('设备已成功进入 Bootloader 模式或相关指令已发送。');
-    // 此时设备可能已断开连接，需要重新扫描或等待设备以 Bootloader 模式出现
+    console.log('The device has successfully entered Bootloader mode or the relevant command has been sent.');
+    // The device may be disconnected at this time, and you need to rescan or wait for the device to appear in Bootloader mode
   } catch (error) {
-    console.error('使设备进入 Bootloader 模式失败:', error);
+    console.error('Failed to make the device enter Bootloader mode:', error);
   }
 }
 
@@ -900,47 +899,47 @@ async function enterBootloaderMode() {
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* 执行此操作后，设备通常会断开连接并以 Bootloader 模式重新枚举（如果支持）。您可能需要重新扫描设备或使用特定的 Bootloader 工具进行后续操作（如固件更新）。
-* tip: 擦除后，需要重新连接设备,调用重连接口`ServiceKeyboard.reconnection`。
-:::
+- After doing this, the device will usually be disconnected and reenumerated in Bootloader mode (if supported).You may need to rescan the device or use a specific Bootloader tool for subsequent operations (such as firmware updates).
+- tip: After erasing, you need to reconnect the device and call the reconnection port `ServiceKeyboard.reconnection`.
+  :::
 
-## 从Bootloader模式返回应用模式
+## Return to application mode from Bootloader mode
 
 ServiceKeyboard.bootToApp()
 
-**简要描述:**
-使设备从 Bootloader 模式返回到应用模式。
+**Brief description:**
+Returns the device to the application mode from Bootloader mode.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<void>`
-* **描述:** 返回一个 `Promise`。操作成功完成时，`Promise` 解析，无特定返回值。如果操作失败，`Promise` 会拒绝并返回一个错误。
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<void>`
+- **Description:** Returns a `Promise`.When the operation is successfully completed, `Promise` is parsed and there is no specific return value.If the operation fails, `Promise` will reject and return an error.
+
+---
+
+### Example of usage
 
 ```js
 async function returnToAppMode() {
   try {
-    console.log('正在尝试使设备从 Bootloader 模式返回到应用模式...');
+    console.log('Trying to return the device from Bootloader mode to application mode...');
     await ServiceKeyboard.bootToApp();
-    console.log('设备已成功返回到应用模式。');
-    // 此时设备可能已断开连接，需要重新扫描或等待设备以应用模式出现
+    console.log('The device has successfully returned to application mode.');
+    // The device may be disconnected at this time, and you need to rescan or wait for the device to appear in application mode
   } catch (error) {
-    console.error('使设备返回到应用模式失败:', error);
+    console.error('Failed to return the device to application mode:', error);
   }
 }
 
@@ -949,58 +948,58 @@ async function returnToAppMode() {
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* 执行此操作后，设备通常会断开连接并以应用模式重新枚举。您需要重新扫描设备或等待设备重新连接。
-* 建议在操作完成后重新连接设备，调用重连接口 `ServiceKeyboard.reconnection`。
-:::
+- After doing this, the device will usually be disconnected and reenumerated in Applied mode.You need to rescan the device or wait for the device to reconnect.
+- It is recommended to reconnect the device after the operation is completed and call the reconnection port `ServiceKeyboard.reconnection`.
+  :::
 
-## Bin文件更新固件
+## Bin file update firmware
 
 ServiceKeyboard.upgrade()
 
-**简要描述:**
-向处于 Bootloader 模式的设备更新固件。
+**Brief description:**
+Update firmware to devices in Bootloader mode.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称   | 类型                                                  | 描述                                                           | 是否必需 | 默认值 |
-|------------|-------------------------------------------------------|----------------------------------------------------------------|----------|--------|
-| `buffer`   | `ArrayBuffer`                                         | 包含新固件二进制数据的 `ArrayBuffer`。                          | 是       | 无     |
-| `callback` | `(data: {current: number, total: number, updateStatus: string}) => void` | 一个回调函数，用于报告固件更新的进度。`data.current` 是已传输的字节数，`data.total` 是总字节数，`data.updateStatus` 是当前更新状态。 | 否       | 无     |
-| `options`  | `object`                                              | 更新过程中的配置选项。(可根据实际设备情况去调试)                                          | 否       | 有     |
-| `options.toBootDelay` | `number`                                        | 进入 Bootloader 模式后的延迟时间（毫秒）。                      | 否       | 4000   |
-| `options.writeDelay`  | `number`                                        | 写入数据时的延迟时间（毫秒）。                                  | 否       | 30     |
-| `options.toAppDelay`  | `number`                                        | 返回应用模式时的延迟时间（毫秒）。                              | 否       | 4000   |
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<{ success: boolean }>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，指明固件更新是否成功。
-* **解析对象结构:**
-
-| 字段名称  | 类型      | 描述             | 示例值  |
-|-----------|-----------|------------------|---------|
-| `success` | `boolean` | 指示更新是否成功。 | `true`  |
+| Parameter name        | Type                                                                     | Description                                                                                                                                                                                                           | Required | Default |
+| --------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
+| `buffer`              | `ArrayBuffer`                                                            | `ArrayBuffer` containing new firmware binary data.                                                                                                                                                                    | Yes      | None    |
+| `callback`            | `(data: {current: number, total: number, updateStatus: string}) => void` | A callback function that reports the progress of firmware updates.`data.current` is the number of bytes transmitted, `data.total` is the total number of bytes, and `data.updateStatus` is the current update status. | No       | No      |
+| `options`             | `object`                                                                 | Configuration options during the update process.(Can be debugged according to the actual equipment situation)                                                                                                         | No       | Yes     |
+| `options.toBootDelay` | `number`                                                                 | Delay time (milliseconds) after entering Bootloader mode.                                                                                                                                                             | No       | 4000    |
+| `options.writeDelay`  | `number`                                                                 | Delay time (milliseconds) when writing data.                                                                                                                                                                          | No       | 30      |
+| `options.toAppDelay`  | `number`                                                                 | Returns the delay time (milliseconds) when applying mode.                                                                                                                                                             | No       | 4000    |
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<{ success: boolean }>`
+- **Description:** Returns a `Promise`, which resolves to an object, indicating whether the firmware update is successful.
+- **Resolve object structure: **
+
+| Field Name | Type      | Description                                 | Sample Value |
+| ---------- | --------- | ------------------------------------------- | ------------ |
+| `success`  | `boolean` | Indicates whether the update is successful. | `true`       |
+
+---
+
+### Example of usage
 
 ```js
 async function performFirmwareUpdate(firmwareBuffer: ArrayBuffer) {
   try {
-    // 确保设备处于 Bootloader 模式
+// Make sure the device is in Bootloader mode
     // await ServiceKeyboard.toBoot();
-    // 等待设备以 Bootloader 模式重新连接并获取其新的 deviceId/handle
+// Wait for the device to reconnect in Bootloader mode and get its new deviceId/handle
 
-    console.log('开始固件更新...');
+console.log('Start firmware update...');
     const update = () => {
       const reader = new FileReader();
       reader.readAsArrayBuffer(fileList.value[0].raw);
@@ -1030,9 +1029,9 @@ async function performFirmwareUpdate(firmwareBuffer: ArrayBuffer) {
         loading.value = false;
       };
     };
-    // 更新后设备通常会重启
+// The device will usually restart after update
   } catch (error) {
-    console.error('固件更新过程中发生错误:', error);
+console.error('An error occurred during firmware update:', error);
   }
 }
 // const myFirmwareArrayBuffer: ArrayBuffer = ...;
@@ -1041,27 +1040,27 @@ async function performFirmwareUpdate(firmwareBuffer: ArrayBuffer) {
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* `callback` 函数中的 `updateStatus` 参数可以用来显示当前更新的具体状态。
-* 可以通过 `options` 参数调整更新过程中的各个延迟时间，以适应不同的设备需求。
-:::
+- The `updateStatus` parameter in the `callback` function can be used to display the specific status of the current update.
+- Each delay time during the update process can be adjusted through the `options` parameter to meet different device needs.
+  :::
 
-## 恢复出厂设置
+## Factory reset
 
 ServiceKeyboard.GFSRestore()
 
-**简要描述:**
-将键盘恢复到出厂默认设置。此操作会清除所有用户自定义的配置，包括灯光设置、按键映射、宏设置等。
+**Brief description:**
+Restore the keyboard to factory default settings.This operation clears all user-defined configurations, including lighting settings, key mapping, macro settings, etc.
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
-### 返回值
+### Return value
 
-**类型:** `Promise<void>`
+**Type:** `Promise<void>`
 
-**描述:** 返回一个 `
+**Description:** Return to one `

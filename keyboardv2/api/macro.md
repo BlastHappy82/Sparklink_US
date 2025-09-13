@@ -1,95 +1,104 @@
-# 宏
+# Macro
 
-## 获取宏模式
+## Get macro mode
+
 ServiceKeyboard.getMacroMode()
 
-**简要描述:**
-获取指定宏ID的宏模式设置。
+**Brief description:**
+Gets the macro mode settings for the specified macro ID.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含宏ID的对象。                                                                                    | 是       | 无     |
-| `params.macroId` | `number` | 要查询的宏ID。                                                                                    | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ macroId: number, mode: number, valid: boolean, actNum: number, repNum: number }>`
+| Parameter name   | Type     | Description                     | Required | Default |
+| :--------------- | :------- | :------------------------------ | :------- | :------ |
+| `params`         | `object` | Object containing the macro ID. | Yes      | None    |
+| `params.macroId` | `number` | The macro ID to query.          | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含宏的模式设置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ macroId: number, mode: number, valid: boolean, actNum: number, repNum: number }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the pattern setting information of the macro.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `macroId` | `number` | 宏ID。          | `1`    |
-| `mode`   | `number` | 宏执行模式。     | `0`    |
-| `valid`  | `boolean` | 宏有效标志。    | `true` |
-| `actNum` | `number` | 宏动作数量。     | `6`    |
-| `repNum` | `number` | 重复次数。       | `1`    |
+| `macroId` | `number` | MacroID.| `1` |
+| `mode` | `number` | Macro execution mode.| `0` |
+| `valid` | `boolean` | Macro valid flag.| `true` |
+| `actNum` | `number` | Number of macro actions.| `6` |
+| `repNum` | `number` | Number of repetitions.| `1` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function getMacroModeSettings(macroId) {
   try {
     const result = await ServiceKeyboard.getMacroMode({ macroId });
-    console.log(`宏ID ${macroId} 的模式设置:`, result);
+    console.log(`macroID ${macroId} mode setting:`, result);
     return result;
   } catch (error) {
-    console.error('获取宏模式设置失败:', error);
+    console.error('Failed to get macro mode setting:', error);
     throw error;
   }
 }
 
-// 示例：获取宏ID为1的宏模式设置
+// Example: Get the macro mode setting with macro ID 1
 // getMacroModeSettings(1);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `macroId`: 要查询的宏ID。
-*   `mode` 表示宏的执行模式：
-    *   0: 点击执行，重复n次，执行期间再次点击无效
-    *   1: 点击执行，重复n次，执行期间再次点击，重新执行
-    *   2: 点击执行，重复n次，执行期间再次点击，立即停止执行
-    *   3: 点击执行，重复n次，执行期间再次点击，完成本次宏后停止执行
-    *   4: 按住执行，重复次数无限，松开后立即停止执行
-    *   5: 按住执行，重复次数无限，松开后完成本次宏后停止执行
-*   `valid`: 表示该宏是否有效。
-*   `actNum`: 表示宏中包含的动作数量。
-*   `repNum`: 表示宏的重复执行次数。
-:::
 
-## 设置宏模式
+- `macroId`: The macro ID to query.
+- `mode` represents the execution mode of the macro:
+- 0: Click to execute, repeat n times, click again during execution is invalid
+- 1: Click to execute, repeat n times, click again during execution, and execute again
+- 2: Click to execute, repeat n times, click again during execution, and stop execution immediately
+- 3: Click to execute, repeat n times, click again during execution, stop execution after completing this macro
+- 4: Press and hold to execute, the number of repetitions is unlimited, and the execution is stopped immediately after release
+- 5: Press and hold to execute, the number of repetitions is unlimited, and stop execution after releasing this macro.
+- `valid`: Indicates whether the macro is valid.
+- `actNum`: Indicates the number of actions contained in the macro.
+- `repNum`: Indicates the number of repeated executions of the macro.
+  :::
+
+## Set macro mode
+
 ServiceKeyboard.setMacroMode()
 
-**简要描述:**
-设置指定宏ID的宏模式配置。
+**Brief description:**
+Sets the macro mode configuration for the specified macro ID.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含宏模式设置的对象。                                                                              | 是       | 无     |
-| `params.macroId` | `number` | 要设置的宏ID。                                                                                    | 是       | 无     |
-| `params.mode` | `number` | 宏执行模式。                                                                                      | 是       | 无     |
-| `params.valid` | `number` | 宏有效标志（1表示有效，0表示无效）。                                                              | 是       | 无     |
-| `params.actNum` | `number` | 宏动作数量。                                                                                      | 是       | 无     |
-| `params.repNum` | `number` | 重复次数。                                                                                        | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ macroId: number, mode: number, valid: boolean, actNum: number, repNum: number }>`
+| Parameter name   | Type     | Description                                        | Required | Default |
+| :--------------- | :------- | :------------------------------------------------- | :------- | :------ |
+| `params`         | `object` | Object containing macro mode settings.             | Yes      | None    |
+| `params.macroId` | `number` | The macro ID to set.                               | Yes      | None    |
+| `params.mode`    | `number` | Macro execution mode.                              | Yes      | None    |
+| `params.valid`   | `number` | Macro valid flag (1 means valid, 0 means invalid). | Yes      | None    |
+| `params.actNum`  | `number` | Number of macro actions.                           | Yes      | None    |
+| `params.repNum`  | `number` | Number of repetitions.                             | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含设置后的宏模式信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ macroId: number, mode: number, valid: boolean, actNum: number, repNum: number }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the set macro mode information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `macroId` | `number` | 宏ID。          | `0`    |
-| `mode`   | `number` | 宏执行模式。     | `0`    |
-| `valid`  | `boolean` | 宏有效标志。    | `true` |
-| `actNum` | `number` | 宏动作数量。     | `8`    |
-| `repNum` | `number` | 重复次数。       | `0`    |
+| `macroId` | `number` | MacroID.| `0` |
+| `mode` | `number` | Macro execution mode.| `0` |
+| `valid` | `boolean` | Macro valid flag.| `true` |
+| `actNum` | `number` | Number of macro actions.| `8` |
+| `repNum` | `number` | Number of repetitions.| `0` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setMacroModeSettings(macroId, mode, valid, actNum, repNum) {
   try {
@@ -98,191 +107,201 @@ async function setMacroModeSettings(macroId, mode, valid, actNum, repNum) {
       mode,
       valid,
       actNum,
-      repNum
+      repNum,
     };
-    
+
     const result = await ServiceKeyboard.setMacroMode(params);
-    console.log(`宏ID ${macroId} 的模式设置已更新:`, result);
+    console.log(`macroID ${macroId} mode setting has been updated:`, result);
     return result;
   } catch (error) {
-    console.error('设置宏模式失败:', error);
+    console.error('Failed to set macro mode:', error);
     throw error;
   }
 }
 
-// 示例：设置宏ID为0的宏模式
+// Example: Set macro mode with macro ID 0
 // setMacroModeSettings(0, 0, 1, 8, 0);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `macroId`: 要设置的宏ID。
-*   `mode` 表示宏的执行模式：
-    *   0: 点击执行，重复n次，执行期间再次点击无效
-    *   1: 点击执行，重复n次，执行期间再次点击，重新执行
-    *   2: 点击执行，重复n次，执行期间再次点击，立即停止执行
-    *   3: 点击执行，重复n次，执行期间再次点击，完成本次宏后停止执行
-    *   4: 按住执行，重复次数无限，松开后立即停止执行
-    *   5: 按住执行，重复次数无限，松开后完成本次宏后停止执行
-*   `valid`: 输入时使用数字（1表示有效，0表示无效），返回时转换为布尔值。
-*   `actNum`: 表示宏中包含的动作数量。
-*   `repNum`: 表示宏的重复执行次数，0表示不重复。
-:::
 
+- `macroId`: The macro ID to set.
+- `mode` represents the execution mode of the macro:
+- 0: Click to execute, repeat n times, click again during execution is invalid
+- 1: Click to execute, repeat n times, click again during execution, and execute again
+- 2: Click to execute, repeat n times, click again during execution, and stop execution immediately
+- 3: Click to execute, repeat n times, click again during execution, stop execution after completing this macro
+- 4: Press and hold to execute, the number of repetitions is unlimited, and the execution is stopped immediately after release
+- 5: Press and hold to execute, the number of repetitions is unlimited, and stop execution after releasing this macro.
+- `valid`: Use a number when input (1 means valid, 0 means invalid), and convert to a Boolean value when returned.
+- `actNum`: Indicates the number of actions contained in the macro.
+- `repNum`: indicates the number of repeated executions of the macro, 0 indicates no repetition.
+  :::
 
-## 获取宏数据
+## Get macro data
+
 ServiceKeyboard.getMacroData()
 
-**简要描述:**
-获取指定宏ID的宏动作数据。由于宏动作数据可能较多，接口支持分页获取。
+**Brief description:**
+Gets the macro action data of the specified macro ID.Since the macro action data may be large, the interface supports pagination acquisition.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含宏ID和偏移量的对象。                                                                            | 是       | 无     |
-| `params.macroId` | `number` | 要查询的宏ID。                                                                                    | 是       | 无     |
-| `params.offset` | `number` | 分页偏移量，用于计算分页。                                    | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ macroId: number, offset: number, macros: Array<{ status: number, delay: number, keyCode: number }> }>`
+| Parameter name   | Type     | Description                                | Required | Default |
+| :--------------- | :------- | :----------------------------------------- | :------- | :------ |
+| `params`         | `object` | Object containing the macro ID and offset. | Yes      | None    |
+| `params.macroId` | `number` | The macro ID to query.                     | Yes      | None    |
+| `params.offset`  | `number` | Paging offset, used to calculate paging.   | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含宏的动作数据信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ macroId: number, offset: number, macros: Array<{ status: number, delay: number, keyCode: number }> }>`
+
+**Description:** Returns a `Promise`, which is parsed into an object, containing the action data information of the macro.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `macroId` | `number` | 宏ID。          | `0`    |
-| `offset` | `number` | 分页偏移量。     | `0`    |
-| `macros` | `Array` | 宏动作数组。     | -      |
+| `macroId` | `number` | MacroID.| `0` |
+| `offset` | `number` | Pagination offset.| `0` |
+| `macros` | `Array` | Macro action array.| - |
 
-**macros 数组中的对象结构:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Object structure in macros array:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `status` | `number` | 按键状态：1=按下，0=弹起。 | `1`    |
-| `delay`  | `number` | 动作执行后的延时，单位为ms。 | `47`   |
-| `keyCode`| `number` | 按键码。         | `22`   |
+| `status` | `number` | Key status: 1=press, 0=bounce.| `1` |
+| `delay` | `number` | The delay after the action is executed, the unit is ms.| `47` |
+| `keyCode`| `number` | keycode.| `22` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function getMacroDataSettings(macroId, offset) {
   try {
     const params = {
       macroId,
-      offset
+      offset,
     };
-    
+
     const result = await ServiceKeyboard.getMacroData(params);
-    console.log(`宏ID ${macroId} 的动作数据:`, result);
+    console.log(`action data of macro ID ${macroId}:`, result);
     return result;
   } catch (error) {
-    console.error('获取宏数据失败:', error);
+    console.error('Failed to obtain macro data:', error);
     throw error;
   }
 }
 
-// 示例：获取宏ID为0的第一页动作数据
+// Example: Get the first page action data with macro ID 0
 // getMacroDataSettings(0, 0);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `macroId`: 要查询的宏ID。
-*   `offset`: 分页偏移量，用于分页获取宏动作数据。
-*   `macros` 数组中的每个对象表示一个宏动作：
-    *   `status`: 1表示按下，0表示弹起。
-    *   `delay`: 表示该动作执行后的延时时间，单位为ms。
-    *   `keyCode`: 表示要触发的按键码。
-*   返回的 `macros` 数组长度固定为15，未使用的动作位置会被填充为 `{ status: 0, delay: 0, keyCode: 0 }`。
-:::
 
-## 设置宏数据
+- `macroId`: The macro ID to query.
+- `offset`: Paging offset, used to paging to obtain macro action data.
+- Each object in the `macros` array represents a macro action:
+- `status`: 1 means pressing, 0 means popping up.
+- `delay`: indicates the delay time after the operation is executed, in ms.
+- `keyCode`: Indicates the key code to be triggered.
+- The returned `macros` array length is fixed to 15, and the unused action position will be filled with `{ status: 0, delay: 0, keyCode: 0 }`.
+  :::
+
+## Set macro data
+
 ServiceKeyboard.setMacroData()
 
-**简要描述:**
-设置指定宏ID的宏动作数据。由于宏动作数据可能较多，接口支持分页设置。
+**Brief description:**
+Sets the macro action data of the specified macro ID.Since the macro action data may be large, the interface supports pagination settings.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含宏ID、偏移量和动作数组的对象。                                                                  | 是       | 无     |
-| `params.macroId` | `number` | 要设置的宏ID。                                                                                    | 是       | 无     |
-| `params.offset` | `number` | 分页偏移量，用于计算分页。                                    | 是       | 无     |
-| `params.actions` | `Array` | 宏动作数组。                                                                                      | 是       | 无     |
+### parameter
 
-**actions 数组中的对象结构:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+| Parameter name   | Type     | Description                                               | Required | Default |
+| :--------------- | :------- | :-------------------------------------------------------- | :------- | :------ |
+| `params`         | `object` | Object containing the macro ID, offset, and action array. | Yes      | None    |
+| `params.macroId` | `number` | The macro ID to set.                                      | Yes      | None    |
+| `params.offset`  | `number` | Paging offset, used to calculate paging.                  | Yes      | None    |
+| `params.actions` | `Array`  | Macro action array.                                       | Yes      | None    |
+
+**actions Object structure in array:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `status` | `number` | 按键状态：1=按下，0=弹起。 | `1`    |
-| `delay`  | `number` | 动作执行后的延时，单位为ms。 | `119`  |
-| `keyCode`| `number` | 按键码。         | `7`    |
+| `status` | `number` | Key status: 1=press, 0=bounce.| `1` |
+| `delay` | `number` | The delay after the action is executed, the unit is ms.| `119` |
+| `keyCode`| `number` | keycode.| `7` |
 
-### 返回值
-**类型:** `Promise<Array<{ macroId: number, offset: number, macros: Array<{ status: number, delay: number, keyCode: number }> }>>`
+### Return value
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个数组，包含设置后的宏动作数据信息。
+**Type:** `Promise<Array<{ macroId: number, offset: number, macros: Array<{ status: number, delay: number, keyCode: number }> }>>`
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Description:** Returns a `Promise`, which is parsed into an array, containing the set macro action data information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `macroId` | `number` | 宏ID。          | `0`    |
-| `offset` | `number` | 分页偏移量。     | `0`    |
-| `macros` | `Array` | 宏动作数组。     | -      |
+| `macroId` | `number` | MacroID.| `0` |
+| `offset` | `number` | Pagination offset.| `0` |
+| `macros` | `Array` | Macro action array.| - |
 
-**macros 数组中的对象结构:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Object structure in macros array:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `status` | `number` | 按键状态：1=按下，0=弹起。 | `1`    |
-| `delay`  | `number` | 动作执行后的延时，单位为ms。 | `119`  |
-| `keyCode`| `number` | 按键码。         | `7`    |
+| `status` | `number` | Key status: 1=press, 0=bounce.| `1` |
+| `delay` | `number` | The delay after the action is executed, the unit is ms.| `119` |
+| `keyCode`| `number` | keycode.| `7` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setMacroDataSettings(macroId, offset, actions) {
   try {
     const params = {
       macroId,
       offset,
-      actions
+      actions,
     };
-    
+
     const result = await ServiceKeyboard.setMacroData(params);
-    console.log(`宏ID ${macroId} 的动作数据已更新:`, result);
+    console.log(`action data of macro ID ${macroId} has been updated:`, result);
     return result;
   } catch (error) {
-    console.error('设置宏数据失败:', error);
+    console.error('Set macro data failed:', error);
     throw error;
   }
 }
 
-// 示例：设置宏ID为0的第一页动作数据
+// Example: Set the first page action data with macro ID 0
 const exampleActions = [
-    {
-        "status": 1,
-        "delay": 119,
-        "keyCode": 7
-    },
-    {
-        "status": 1,
-        "delay": 32,
-        "keyCode": 4
-    }
-    // ... 更多动作
+  {
+    status: 1,
+    delay: 119,
+    keyCode: 7,
+  },
+  {
+    status: 1,
+    delay: 32,
+    keyCode: 4,
+  },
+  // ... More actions
 ];
 
 // setMacroDataSettings(0, 0, exampleActions);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `macroId`: 要设置的宏ID。
-*   `offset`: 分页偏移量，用于分页设置宏动作数据。
-*   `actions` 数组中的每个对象表示一个宏动作：
-    *   `status`: 1表示按下，0表示弹起。
-    *   `delay`: 表示该动作执行后的延时时间，单位为ms。
-    *   `keyCode`: 表示要触发的按键码。
-*   返回的 `macros` 数组长度固定为15，未使用的动作位置会被填充为 `{ status: 0, delay: 0, keyCode: 0 }`。
-*   设置成功后，返回的数据结构与 `getMacroData` 接口返回的数据结构一致。
-:::
+
+- `macroId`: The macro ID to set.
+- `offset`: Paging offset, used to paginate macro action data.
+- `actions` Each object in the array represents a macro action:
+- `status`: 1 means pressing, 0 means popping up.
+- `delay`: indicates the delay time after the operation is executed, in ms.
+- `keyCode`: Indicates the key code to be triggered.
+- The returned `macros` array length is fixed to 15, and the unused action position will be filled with `{ status: 0, delay: 0, keyCode: 0 }`.
+- After the setting is successful, the returned data structure is consistent with the data structure returned by the `getMacroData` interface.
+  :::

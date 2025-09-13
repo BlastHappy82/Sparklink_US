@@ -1,44 +1,44 @@
-# 键盘性能设置
+# Keyboard performance settings
 
-## 获取按键性能配置
+## Get key performance configuration
 
 ServiceKeyboard.getPerformance()
 
-**简要描述:**
-获取指定按键的所有性能相关配置信息，包括模式、行程值、死区等参数。
+**Brief description:**
+Get all performance-related configuration information of the specified key, including mode, stroke value, dead zone and other parameters.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                                                                 | 是否必需 | 默认值 |
-|----------|----------|----------------------------------------------------------------------|----------|--------|
-| `params` | `object` | 一个包含按键位置信息的对象。                                             | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                               | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                               | 是       | 无     |
+| Parameter name | Type     | Description                                          | Required | Default |
+| -------------- | -------- | ---------------------------------------------------- | -------- | ------- |
+| `params`       | `object` | An object containing key position information.       | Yes      | None    |
+| `params.row`   | `number` | The row number of the key in the keyboard matrix.    | Yes      | None    |
+| `params.col`   | `number` | The column number of the key in the keyboard matrix. | Yes      | None    |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<IPerformanceInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含按键所有性能配置信息的对象。
-* **解析对象结构 (`IPerformanceInfo`):**
+- **Overall Type:** `Promise<IPerformanceInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing all the performance configuration information of the key.
+- **Resolve object structure (`IPerformanceInfo`):**
 
-| 字段名称            | 类型     | 描述                     | 示例值  |
-|---------------------|----------|--------------------------|---------|
-| `mode`              | `number` | 触发方式                 | `0`     |
-| `normalPress`       | `number` | 普通触发按下行程         | `2`     |
-| `normalRelease`     | `number` | 普通触发释放行程         | `2`     |
-| `rtFirstTouch`      | `number` | RT触发首次触发行程       | `0.5`   |
-| `rtPress`           | `number` | RT首次触发按下行程       | `0.3`   |
-| `rtRelease`         | `number` | RT首次触发释放行程       | `0.3`   |
-| `pressDeadStroke`   | `number` | 按下死区                 | `0.2`   |
-| `releaseDeadStroke` | `number` | 抬起死区                 | `0.2`   |
-| `axis`              | `number` | 获取的轴体列表索引         | `0`     |
-| `calibrate`         | `number` | 校准标志                 | `0`     |
+| Field Name          | Type     | Description                         | Sample Value |
+| ------------------- | -------- | ----------------------------------- | ------------ |
+| `mode`              | `number` | Trigger method                      | `0`          |
+| `normalPress`       | `number` | Normal trigger press stroke         | `2`          |
+| `normalRelease`     | `number` | Normal trigger release schedule     | `2`          |
+| `rtFirstTouch`      | `number` | RT triggers first trip              | `0.5`        |
+| `rtPress`           | `number` | RT triggers the first trip to press | `0.3`        |
+| `rtRelease`         | `number` | RT first trigger release stroke     | `0.3`        |
+| `pressDeadStroke`   | `number` | Press Dead Zone                     | `0.2`        |
+| `releaseDeadStroke` | `number` | lift dead zone                      | `0.2`        |
+| `axis`              | `number` | Get index of the axis list          | `0`          |
+| `calibrate`         | `number` | Calibration mark                    | `0`          |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -57,65 +57,65 @@ ServiceKeyboard.getPerformance()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getKeyPerformance(row: number, col: number) {
   try {
     const result = await ServiceKeyboard.getPerformance({
       row: row,
-      col: col
+      col: col,
     });
-    console.log('按键性能配置:', result);
+    console.log('Key performance configuration:', result);
   } catch (error) {
-    console.error('获取按键性能配置失败:', error);
+    console.error('Failed to obtain key performance configuration:', error);
   }
 }
 
-// 示例：获取第5行第14列的按键性能配置
+// Example: Get the key performance configuration of row 5, column 14
 getKeyPerformance(5, 14);
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* `row` 和 `col` 的值需要根据键盘的实际矩阵布局来确定。
-* 返回的配置信息包含了按键的所有性能相关参数，可以用于显示或修改按键的性能设置。
-:::
+- The values ​​of `row` and `col` need to be determined based on the actual matrix layout of the keyboard.
+- The returned configuration information contains all performance-related parameters of the key, which can be used to display or modify the performance settings of the key.
+  :::
 
 ---
 
-## 设置按键性能配置
+## Set button performance configuration
 
 ServiceKeyboard.setPerformance()
 
-**简要描述:**
-设置指定按键的所有性能相关配置信息，包括触发方式、行程值、死区等参数。
+**Brief description:**
+Set all performance-related configuration information of the specified key, including trigger method, stroke value, dead zone and other parameters.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                                                                 | 是否必需 | 默认值 |
-|----------|----------|----------------------------------------------------------------------|----------|--------|
-| `params` | `object` | 一个包含按键性能配置信息的对象。                                         | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号 | 是 | 无 |
-| `params.col` | `number` | 按键在键盘矩阵中的列号 | 是 | 无 |
-| `params.mode` | `number` | 触发方式 | 是 | 无 |
-| `params.normalPress` | `number` | 普通触发按下行程 | 是 | 无 |
-| `params.normalRelease` | `number` | 普通触发释放行程 | 是 | 无 |
-| `params.rtFirstTouch` | `number` | RT触发首次触发行程 | 是 | 无 |
-| `params.rtPress` | `number` | RT首次触发按下行程 | 是 | 无 |
-| `params.rtRelease` | `number` | RT首次触发释放行程 | 是 | 无 |
-| `params.pressDeadStroke` | `number` | 按下死区 | 是 | 无 |
-| `params.releaseDeadStroke` | `number` | 抬起死区 | 是 | 无 |
-| `params.axis` | `number` | 获取的轴体列表索引 | 是 | 无 |
-| `params.calibrate` | `number` | 校准标志 | 是 | 无 |
+| Parameter name             | Type     | Description                                                     | Required | Default |
+| -------------------------- | -------- | --------------------------------------------------------------- | -------- | ------- |
+| `params`                   | `object` | An object containing key performance configuration information. | Yes      | None    |
+| `params.row`               | `number` | Line number of keys in keyboard matrix                          | Yes      | None    |
+| `params.col`               | `number` | column number of keys in keyboard matrix                        | Yes      | None    |
+| `params.mode`              | `number` | Triggering method                                               | Yes      | None    |
+| `params.normalPress`       | `number` | Normal trigger press stroke                                     | Yes      | None    |
+| `params.normalRelease`     | `number` | Normal trigger release schedule                                 | Yes      | None    |
+| `params.rtFirstTouch`      | `number` | RT triggers first trip                                          | Yes      | None    |
+| `params.rtPress`           | `number` | RT triggers the first trip to press                             | Yes      | None    |
+| `params.rtRelease`         | `number` | RT first trigger release trip                                   | Yes      | None    |
+| `params.pressDeadStroke`   | `number` | Press Dead Zone                                                 | Yes      | None    |
+| `params.releaseDeadStroke` | `number` | lift dead zone                                                  | Yes      | None    |
+| `params.axis`              | `number` | Get index of the axis list                                      | Yes      | None    |
+| `params.calibrate`         | `number` | Calibration mark                                                | Yes      | None    |
 
-**参数示例:**
+**Sample example:**
 
 ```js
 {
@@ -136,47 +136,47 @@ ServiceKeyboard.setPerformance()
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<IPerformanceInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含设置后的按键性能配置信息的对象。
-* **解析对象结构 (`IPerformanceInfo`):**
+- **Overall Type:** `Promise<IPerformanceInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the set key performance configuration information.
+- **Resolve object structure (`IPerformanceInfo`):**
 
-| 字段名称            | 类型     | 描述                     | 示例值  |
-|---------------------|----------|--------------------------|---------|
-| `mode`              | `number` | 触发方式                 | `0`     |
-| `normalPress`       | `number` | 普通触发按下行程         | `1.506` |
-| `normalRelease`     | `number` | 普通触发释放行程         | `1.506` |
-| `rtFirstTouch`      | `number` | RT触发首次触发行程       | `0.5`   |
-| `rtPress`           | `number` | RT首次触发按下行程       | `0.3`   |
-| `rtRelease`         | `number` | RT首次触发释放行程       | `0.3`   |
-| `pressDeadStroke`   | `number` | 按下死区                 | `0.2`   |
-| `releaseDeadStroke` | `number` | 抬起死区                 | `0.2`   |
-| `axis`              | `number` | 轴体                     | `0`     |
-| `calibrate`         | `number` | 校准标志                 | `0`     |
+| Field Name          | Type     | Description                         | Sample Value |
+| ------------------- | -------- | ----------------------------------- | ------------ |
+| `mode`              | `number` | Trigger method                      | `0`          |
+| `normalPress`       | `number` | Normal trigger press stroke         | `1.506`      |
+| `normalRelease`     | `number` | Normal trigger release stroke       | `1.506`      |
+| `rtFirstTouch`      | `number` | RT triggers first trip              | `0.5`        |
+| `rtPress`           | `number` | RT triggers the first trip to press | `0.3`        |
+| `rtRelease`         | `number` | RT first trigger release stroke     | `0.3`        |
+| `pressDeadStroke`   | `number` | Press Dead Zone                     | `0.2`        |
+| `releaseDeadStroke` | `number` | lift dead zone                      | `0.2`        |
+| `axis`              | `number` | axis body                           | `0`          |
+| `calibrate`         | `number` | Calibration mark                    | `0`          |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
   row: number;
   col: number;
-  mode: number; // 触发方式
-  normalPress: number; // 普通触发按下行程
-  normalRelease: number; // 普通触发释放行程
-  rtFirstTouch: number; // RT触发首次触发行程
-  rtPress: number; // RT首次触发按下行程
-  rtRelease: number; // RT首次触发释放行程
-  pressDeadStroke: number; // 按下死区
-  releaseDeadStroke: number; // 抬起死区
-  axis: number; // 轴体
-  calibrate: number; // 校准标志
+  mode: number; // Trigger method
+  normalPress: number; // Normal trigger press stroke
+  normalRelease: number; // Normal trigger release stroke
+  rtFirstTouch: number; // RT triggers the first trip
+  rtPress: number; // RT triggers the first time to press the stroke
+  rtRelease: number; // RT triggers the release stroke for the first time
+  pressDeadStroke: number; // Press the dead zone
+  releaseDeadStroke: number; // Lift the dead zone
+  axis: number; // axis body
+  calibrate: number; // Calibration mark
 }
 ```
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function setKeyPerformance() {
@@ -186,7 +186,7 @@ async function setKeyPerformance() {
       col: 5,
       mode: 0,
       normalPress: 1.506,
-      normalRelease:1.506,
+      normalRelease: 1.506,
       rtFirstTouch: 0.5,
       rtPress: 0.3,
       rtRelease: 0.3,
@@ -195,11 +195,11 @@ async function setKeyPerformance() {
       axis: 0,
       calibrate: 0,
     };
-    
+
     const result = await ServiceKeyboard.setPerformance(params);
-    console.log('设置按键性能配置结果:', result);
+    console.log('Set key performance configuration results:', result);
   } catch (error) {
-    console.error('设置按键性能配置失败:', error);
+    console.error('Set key performance configuration failed:', error);
   }
 }
 
@@ -208,48 +208,48 @@ setKeyPerformance();
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* 所有参数都是必需的，需要提供完整的配置信息。
-* 参数值需要符合键盘的实际规格和限制。
-* 设置完成后，建议使用 `getPerformance` 接口验证设置是否生效。
-:::
+- All parameters are required and complete configuration information is required.
+- Parameter values ​​need to comply with the actual specifications and limitations of the keyboard.
+- After the settings are completed, it is recommended to use the `getPerformance` interface to verify whether the settings are effective.
+  :::
 
 ---
 
-## 获取ADC采样数据
+## Obtain ADC sampled data
 
 ServiceKeyboard.getADCSample()
 
-**简要描述:**
-获取指定行的ADC采样数据，用于分析按键的物理状态。
+**Brief description:**
+Gets the ADC sample data for the specified row, used to analyze the physical state of the key.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                                                                 | 是否必需 | 默认值 |
-|----------|----------|----------------------------------------------------------------------|----------|--------|
-| `params` | `object` | 一个包含行号信息的对象。                                                 | 是       | 无     |
-| `params.row` | `number` | 要获取ADC采样数据的行号。                                               | 是       | 无     |
+| Parameter name | Type     | Description                                               | Required | Default |
+| -------------- | -------- | --------------------------------------------------------- | -------- | ------- |
+| `params`       | `object` | An object containing line number information.             | Yes      | None    |
+| `params.row`   | `number` | The row number of the ADC sampled data is to be obtained. | Yes      | None    |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<IADCSampleInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含ADC采样数据的对象。
-* **解析对象结构 (`IADCSampleInfo`):**
+- **Overall Type:** `Promise<IADCSampleInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing ADC sampled data.
+- **Resolve object structure (`IADCSampleInfo`):**
 
-| 字段名称 | 类型     | 描述                     | 示例值  |
-|----------|----------|--------------------------|---------|
-| `adc`    | `number` | ADC值                    | `0`     |
-| `row`    | `number` | 行号                     | `3`     |
-| `data`   | `number[]` | ADC采样数据数组，包含该行所有按键的采样值 | `[2715, 2700, ...]` |
+| Field Name | Type       | Description                                                               | Sample Value        |
+| ---------- | ---------- | ------------------------------------------------------------------------- | ------------------- |
+| `adc`      | `number`   | ADC value                                                                 | `0`                 |
+| `row`      | `number`   | line number                                                               | `3`                 |
+| `data`     | `number[]` | ADC sampled data array containing sample values ​​for all keys in the row | `[2715, 2700, ...]` |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -292,70 +292,70 @@ ServiceKeyboard.getADCSample()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getADCSampleData(row: number) {
   try {
     const result = await ServiceKeyboard.getADCSample({
-      row: row
+      row: row,
     });
-    console.log('ADC采样数据:', result);
-    console.log('行号:', result.row);
-    console.log('采样数据:', result.data);
+    console.log('ADC sampling data:', result);
+    console.log('Line Number:', result.row);
+    console.log('sampled data:', result.data);
   } catch (error) {
-    console.error('获取ADC采样数据失败:', error);
+    console.error('Failed to obtain ADC sampled data:', error);
   }
 }
 
-// 示例：获取第3行的ADC采样数据
+// Example: Get the ADC sampled data on line 3
 getADCSampleData(3);
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* `row` 的值需要根据键盘的实际矩阵布局来确定。
-* `data` 数组中的值表示每个按键的ADC采样值，0表示该位置没有按键或无效数据。
-* ADC采样值可用于分析按键的物理状态和触发情况。
-:::
+- The value of `row` needs to be determined based on the actual matrix layout of the keyboard.
+- The value in the `data` array represents the ADC sample value for each key, and 0 indicates that there is no key press or invalid data at that position.
+- ADC sample values ​​can be used to analyze the physical state and trigger conditions of the key.
+  :::
 
 ---
 
-## 获取路由数据
+## Get routing data
 
 ServiceKeyboard.getRoute()
 
-**简要描述:**
-获取指定行的按键按下的行程距离数据，用于分析按键的触发状态。
+**Brief description:**
+Gets the travel distance data of the key press of the specified row, which is used to analyze the trigger status of the key.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                                                                 | 是否必需 | 默认值 |
-|----------|----------|----------------------------------------------------------------------|----------|--------|
-| `params` | `object` | 一个包含行号信息的对象。                                                 | 是       | 无     |
-| `params.row` | `number` | 要获取路由数据的行号。                                                   | 是       | 无     |
+| Parameter name | Type     | Description                                   | Required | Default |
+| -------------- | -------- | --------------------------------------------- | -------- | ------- |
+| `params`       | `object` | An object containing line number information. | Yes      | None    |
+| `params.row`   | `number` | The line number to get the routing data.      | Yes      | None    |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<IRouteInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含按键按下的行程数据的对象。
-* **解析对象结构 (`IRouteInfo`):**
+- **Overall Type:** `Promise<IRouteInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the trip data of the key press.
+- **Resolve object structure (`IRouteInfo`):**
 
-| 字段名称 | 类型     | 描述                     | 示例值  |
-|----------|----------|--------------------------|---------|
-| `route`  | `number` | 路由值                   | `1`     |
-| `row`    | `number` | 行号                     | `3`     |
-| `data`   | `number[]` | 路由数据数组，包含该行所有按键的按下的行程距离 | `[0, 0, 0, ...]` |
+| Field Name | Type       | Description                                                             | Sample Value     |
+| ---------- | ---------- | ----------------------------------------------------------------------- | ---------------- |
+| `route`    | `number`   | Routing value                                                           | `1`              |
+| `row`      | `number`   | line number                                                             | `3`              |
+| `data`     | `number[]` | Routing data array, containing the trip distance of all keys in the row | `[0, 0, 0, ...]` |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -398,150 +398,150 @@ ServiceKeyboard.getRoute()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getRouteData(row: number) {
   try {
     const result = await ServiceKeyboard.getRoute({
-      row: row
+      row: row,
     });
-    console.log('路由数据:', result);
-    console.log('行号:', result.row);
-    console.log('路由值:', result.route);
-    console.log('数据:', result.data);
+    console.log('Routing data:', result);
+    console.log('Line Number:', result.row);
+    console.log('Route value:', result.route);
+    console.log('data:', result.data);
   } catch (error) {
-    console.error('获取路由数据失败:', error);
+    console.error('Failed to get routing data:', error);
   }
 }
 
-// 示例：获取第3行的路由数据
+// Example: Get the routing data on line 3
 getRouteData(3);
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* `row` 的值需要根据键盘的实际矩阵布局来确定。
-* `data` 数组中的值表示每个按键的路由值，0表示该位置没有按键或无效数据。
-* 路由值可用于分析按键的触发状态和信号传输情况。
-:::
+- The value of `row` needs to be determined based on the actual matrix layout of the keyboard.
+- The value in the `data` array represents the route value for each key, and 0 indicates that there is no key press or invalid data at that location.
+- The routing value can be used to analyze the trigger status and signal transmission of the key.
+  :::
 
-## 开始校准
+## Begin calibration
 
 ServiceKeyboard.calibrationStart
 
-**简要描述:**
-开始设备的校准流程。
+**Brief description:**
+Start the calibration process of the device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<Calibration>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个 `Calibration` 对象，其中包含校准过程的状态或初始数据。
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<Calibration>`
+- **Description:** Returns a `Promise`, which resolves to a `Calibration` object containing the state or initial data of the calibration process.
+
+---
+
+### Example of usage
 
 ```js
 async function beginCalibration() {
   try {
-    // 确保设备已初始化
+    // Make sure the device is initialized
     // await ServiceKeyboard.init(deviceId);
     const calibrationStatus = await ServiceKeyboard.calibrationStart();
-    console.log('校准已开始:', calibrationStatus);
-    // 根据 calibrationStatus 进行后续操作或UI更新
+    console.log('Calibration has started:', calibrationStatus);
+    // Follow-up operations or UI updates according to calibrationStatus
   } catch (error) {
-    console.error('开始校准失败:', error);
+    console.error('Calibration failed:', error);
   }
 }
 
 // beginCalibration();
 ```
 
-## 结束校准
+## End calibration
 
 ServiceKeyboard.calibrationEnd
 
-**简要描述:**
-结束设备的校准流程。
+**Brief description:**
+End the calibration process of the device.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
-
----
-
-### 返回值
-
-* **总体类型:** `Promise<Calibration>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个 `Calibration` 对象，其中包含校准完成后的状态或最终数据。
+This method requires no parameters.
 
 ---
 
-### 使用示例
+### Return value
+
+- **Overall Type:** `Promise<Calibration>`
+- **Description:** Returns a `Promise`, which resolves to a `Calibration` object containing the state or final data after calibration is completed.
+
+---
+
+### Example of usage
 
 ```js
 async function finishCalibration() {
   try {
-    // 确保设备已初始化且校准已开始
+    // Make sure the device is initialized and calibration has started
     // await ServiceKeyboard.init(deviceId);
     // await ServiceKeyboard.calibrationStart();
     const calibrationResult = await ServiceKeyboard.calibrationEnd();
-    console.log('校准已结束:', calibrationResult);
-    // 根据 calibrationResult 进行后续操作或UI更新
+    console.log('Calibration ended:', calibrationResult);
+    // Follow-up operations or UI updates according to calibrationResult
   } catch (error) {
-    console.error('结束校准失败:', error);
+    console.error('End calibration failed:', error);
   }
 }
 
 // finishCalibration();
 ```
 
-## 获取校准状态
+## Get calibration status
 
 ServiceKeyboard.getCalibrationStatus()
 
-**简要描述:**
-获取指定行的按键校准状态信息。
+**Brief description:**
+Gets the key calibration status information for the specified row.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名称 | 类型     | 描述                                                                 | 是否必需 | 默认值 |
-|----------|----------|----------------------------------------------------------------------|----------|--------|
-| `params` | `object` | 一个包含行号信息的对象。                                                 | 是       | 无     |
-| `params.row` | `number` | 要获取校准状态的行号。                                                   | 是       | 无     |
+| Parameter name | Type     | Description                                   | Required | Default |
+| -------------- | -------- | --------------------------------------------- | -------- | ------- |
+| `params`       | `object` | An object containing line number information. | Yes      | None    |
+| `params.row`   | `number` | Line number to get the calibration status.    | Yes      | None    |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<ICalibrationStatusInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含校准状态信息的对象。
-* **解析对象结构 (`ICalibrationStatusInfo`):**
+- **Overall Type:** `Promise<ICalibrationStatusInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing calibration status information.
+- **Resolve object structure (`ICalibrationStatusInfo`):**
 
-| 字段名称    | 类型     | 描述                     | 示例值  |
-|-------------|----------|--------------------------|---------|
-| `calibrate` | `number` | 校准状态值               | `2`     |
-| `row`       | `number` | 行号                     | `3`     |
-| `data`      | `number[]` | 校准状态数组，包含该行所有按键的校准状态 | `[0, 0, 0, ...]` |
+| Field Name  | Type       | Description                                                                    | Sample Value     |
+| ----------- | ---------- | ------------------------------------------------------------------------------ | ---------------- |
+| `calibrate` | `number`   | Calibration status value                                                       | `2`              |
+| `row`       | `number`   | line number                                                                    | `3`              |
+| `data`      | `number[]` | Calibration status array, containing calibration status of all keys in the row | `[0, 0, 0, ...]` |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -584,67 +584,67 @@ ServiceKeyboard.getCalibrationStatus()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getCalibrationStatusData(row: number) {
   try {
     const result = await ServiceKeyboard.getCalibrationStatus({
-      row: row
+      row: row,
     });
-    console.log('校准状态:', result);
-    console.log('行号:', result.row);
-    console.log('校准状态值:', result.calibrate);
-    console.log('状态数据:', result.data);
+    console.log('Calibration status:', result);
+    console.log('Line Number:', result.row);
+    console.log('Calibration status value:', result.calibrate);
+    console.log('status data:', result.data);
   } catch (error) {
-    console.error('获取校准状态失败:', error);
+    console.error('Failed to obtain calibration status:', error);
   }
 }
 
-// 示例：获取第3行的校准状态
+// Example: Get the calibration status of line 3
 getCalibrationStatusData(3);
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* `row` 的值需要根据键盘的实际矩阵布局来确定。
-* `data` 数组中的值表示每个按键的校准状态，0表示该位置没有按键或未校准。
-* 校准状态值可用于判断按键是否需要校准或校准是否完成。
-:::
+- The value of `row` needs to be determined based on the actual matrix layout of the keyboard.
+- The value in the `data` array indicates the calibration status of each key, and 0 indicates that there are no keys or are not calibrated at that position.
+- The calibration status value can be used to determine whether the key needs calibration or whether the calibration is completed.
+  :::
 
 ---
 
-## 获取轴体列表
+## Get the axis list
 
 ServiceKeyboard.getAxisList()
 
-**简要描述:**
-获取键盘支持的所有轴体类型列表。
+**Brief description:**
+Gets a list of all the axle types supported by the keyboard.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<IAxisListInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含轴体列表信息的对象。
-* **解析对象结构 (`IAxisListInfo`):**
+- **Overall Type:** `Promise<IAxisListInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the information on the axis list.
+- **Resolve object structure (`IAxisListInfo`):**
 
-| 字段名称 | 类型     | 描述                     | 示例值  |
-|----------|----------|--------------------------|---------|
-| `total`  | `number` | 轴体类型总数             | `4`     |
-| `list`   | `number[]` | 轴体类型ID数组，包含所有支持的轴体类型 | `[54, 24, 1, 69]` |
+| Field Name | Type       | Description                                                           | Sample Value      |
+| ---------- | ---------- | --------------------------------------------------------------------- | ----------------- |
+| `total`    | `number`   | Total number of axle body types                                       | `4`               |
+| `list`     | `number[]` | Array of Axis Body Type IDs, containing all supported Axis Body Types | `[54, 24, 1, 69]` |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -660,46 +660,46 @@ ServiceKeyboard.getAxisList()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getAxisListData() {
   try {
     const result = await ServiceKeyboard.getAxisList();
-    console.log('轴体列表:', result);
-    console.log('轴体总数:', result.total);
-    console.log('轴体类型列表:', result.list);
+    console.log('Axis Body List:', result);
+    console.log('Total number of axis bodies:', result.total);
+    console.log('Axis Body Type List:', result.list);
   } catch (error) {
-    console.error('获取轴体列表失败:', error);
+    console.error('Failed to get the axis list:', error);
   }
 }
 
-// 获取轴体列表
+// Get the axis list
 getAxisListData();
 ```
 
 ---
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* 返回的轴体类型ID可用于设置按键的轴体类型。
-* 不同的轴体类型ID代表不同的轴体型号或特性。
-* 在使用 `setPerformance` 接口设置轴体时，应使用此列表中的有效ID。
-:::
+- The returned axis body type ID can be used to set the axis body type of the key.
+- Different shaft body type IDs represent different shaft body models or characteristics.
+- When setting the axis body using the `setPerformance` interface, the valid ID in this list should be used.
+  :::
 
 ---
 
-## 全局功能轴体库查询
+## Global Functional Axis Library Query
 
-**简要描述:**
-键盘支持轴体库
+**Brief description:**
+Keyboard support shaft library
 
-### 注意事项
+### Things to note
 
 ::: tip
 
-* **轴体库的具体接口请联系我们获取。**
-* 导入轴体库前，请确保数据格式正确。
-:::
+- **For the specific interface of the axis body library, please contact us for it.**
+- Before importing the axis library, make sure the data format is correct.
+  :::
