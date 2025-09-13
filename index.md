@@ -1,27 +1,23 @@
 ---
-
 layout: home
-
 hero:
-  name: "星闪悦动"
-  tagline: 最好的外设方案制作商
+  name: "Sparklink PlayJoy"
+  tagline: The best peripheral-solution provider
   actions:
     - theme: brand
-      text: 了解我们
+      text: Learn about us
       link: http://www.sparklinkplayjoy.com/
     - theme: alt
-      text: 快速开始
+      text: Quick start
       link: /keyboard
-
 features:
   - icon: ⌨️
-    title: 优点1
-    details: 专业的磁轴方案定制专家
-  - icon: 🖱️ 
-    title: 优点2
-    details: 专注于提供最优质的磁轴方案
+    title: Advantage 1
+    details: Specialists in customized magnetic-switch solutions
+  - icon: 🖱️
+    title: Advantage 2
+    details: Dedicated to delivering top-quality magnetic-switch solutions
   - icon: 💻
-    title: 优点3
-    details: 专业的磁轴方案制作团队
+    title: Advantage 3
+    details: Professional team for magnetic-switch solutions
 ---
-
