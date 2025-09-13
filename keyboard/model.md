@@ -1,7 +1,3 @@
-# 模型
-
-## 设备
-
 ```ts
 interface HIDCollectionInfo {
   usagePage: number;
@@ -29,8 +25,8 @@ interface HIDDevice extends EventTarget {
 }
 
 type Device = {
-   data: HIDDevice, // 设备信息
-   id: string, // 设备id
+   data: HIDDevice, // device information
+   id: string, // device ID
    usage: number, // usage
    usagePage: number, // usagePage
    vendorId: number, // vendorId
@@ -63,13 +59,13 @@ enum RateOfReturn {
 }
 
 interface Calibration {
-  calibrations: number[][], // 包含所有按键的最大行程值
-  travels: number[][], // 包含所有按键按下的行程值
+  calibrations: number[][], // maximum travel values for all keys
+  travels: number[][], // travel values when all keys are pressed
 }
 
 ```
 
-## 布局模型
+## Layout model
 
 ```ts
 [
@@ -83,45 +79,45 @@ interface Calibration {
 ]
 ```
 
-## 单键的布局模型
+## Single-key layout model
 
 ```ts
 type IDefKeyInfo = {
-  keyValue: number; // 键值
+  keyValue: number; // key value
   location: {
-    row: number; // 行
-    col: number; // 列
+    row: number; // row
+    col: number; // column
   };
 }
 ```
 
-## 灯光
+## Lighting
 
 ```ts
 
-// 灯光模型
+// Lighting model
 type LightMode = {
-  open: boolean; // 是否开启灯光
-  direction: boolean; // 方向 true 正向 false 反向
-  superResponse: boolean; // 超强响应
-  speed: number; // 灯光速度
-  colors: string[]; // 颜色组
-  mode: number; // 0 关闭, 1-20表示效果，21 自定义
-  luminance: number; // 亮度
-  sleepDelay: number; // 灯光休眠时间
-  staticColor: number; // 静态灯光颜色模式
+  open: boolean; // whether lighting is on
+  direction: boolean; // direction true: forward, false: reverse
+  superResponse: boolean; // super response
+  speed: number; // lighting speed
+  colors: string[]; // color set
+  mode: number; // 0 off, 1-20 effects, 21 custom
+  luminance: number; // brightness
+  sleepDelay: number; // lighting sleep time
+  staticColor: number; // static lighting color mode
   type: LightModeType;
-  // LightModeType = 'static' | 'custom' | 'dynamic';   
-  // type的类型：custom 自定义模式，static 静态模式，dynamic 动态模式。
-  // 当设置Logo灯的时候type只有static静态模式和dynamic动态模式两种模式。
+  // LightModeType = 'static' | 'custom' | 'dynamic';
+  // type: custom = custom mode, static = static mode, dynamic = dynamic mode.
+  // When setting the logo light, only static and dynamic modes are available.
 };
 
-// 灯光Type
+// Lighting type
 type LightModeType = 'custom' | 'static' | 'dynamic';
 
 ```
 
-## 高级键
+## Advanced keys
 
 ```ts
 type TrpsLayoutType = 'Layout_TRPS1' | 'Layout_TRPS2' | 'Layout_TRPS3' | 'Layout_TRPS4';
@@ -146,13 +142,13 @@ interface ISOCDModeV2 {
   mode: number;
 }
 interface ISOCDModeV3 {
-  pos1: number; // 原键值
-  pos2: number; // 原键值
-  key1: number; // 发送键值
-  key2: number; // 发送键值
-  type: number; // 发送键值类型 0=按pos发送键值，1=按Key发送键值，默认:0
-  mode: number; // 发送键值模式 mode表示键值的发送模式，共有四种模式：0=后覆盖，1=a优先，2=b优先，3=中性（两个按键都按下都不生效）,默认:0
-  delay: number; // 发送键值延迟
+  pos1: number; // original key value
+  pos2: number; // original key value
+  key1: number; // key value to send
+  key2: number; // key value to send
+  type: number; // key value type 0=send by position, 1=send by key value, default:0
+  mode: number; // key sending mode: 0=override later, 1=A priority, 2=B priority, 3=neutral (no key when both pressed), default:0
+  delay: number; // key sending delay
 }
 interface IEndMode {
   key: number;
@@ -161,7 +157,7 @@ interface IEndMode {
 }
 ```
 
-## 宏
+## Macro
 
 ```ts
 
@@ -175,6 +171,5 @@ interface IMacroMode {
 }
 
 type MacroType = { keyCode: number; timeDifference: number; status: number };
-
 
 ```
