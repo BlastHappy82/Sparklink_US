@@ -1,9 +1,9 @@
-# 星闪悦动文档
+# Sparklink PlayJoy Documentation
 
-## 公司简介
+## Company Profile
 
-星闪悦动科技有限公司是一家专业为客户提供键盘技术咨询、产品定制等服务的国家高新技术企业。公司专注于键盘产品解决方案的研发，研发团队对市场及技术非常熟悉，用专业高效的服务满足客户的键盘制品需求。我们秉承着以客户为中心，力求为客户提供最优质的方案设计、最诚信的商务服务、最专业的技术支持，在键盘行业不断精益求精。
+Sparklink PlayJoy Technology Co., Ltd. is a national high-tech enterprise offering keyboard technology consulting and product customization services. We focus on the research and development of keyboard solutions, and our team is deeply familiar with market and technology trends. With a customer-centric approach, we provide optimal design solutions, trustworthy business services, and professional technical support, continually striving for excellence in the keyboard industry.
 
-## 联系方式
+## Contact
 
-邮件<sparklinkplayjoy@163.com>
+Email <sparklinkplayjoy@163.com>
