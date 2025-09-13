@@ -1,13 +1,13 @@
 export default [
   {
-    text: 'sdk文档',
+    text: 'SDK Documentation',
     items: [
-      { text: '键盘sdk', link: '/keyboard/' },
-      { text: '键盘sdkv2', link: '/keyboardv2/' },
-      { text: '鼠标sdk', link: '/mouse/' },
+      { text: 'Keyboard SDK', link: '/keyboard/' },
+      { text: 'Keyboard SDK v2', link: '/keyboardv2/' },
+      { text: 'Mouse SDK', link: '/mouse/' },
     ],
   },
-  { text: '星闪悦动官网', link: 'http://www.sparklinkplayjoy.com/' },
-  { text: '键盘驱动', link: 'https://hub.sparklinkplayjoy.com/#/connect' },
-  { text: '延迟测试', link: 'https://delay.sparklinkplayjoy.com/home   ' },
+  { text: 'SparkLink PlayJoy Official Site', link: 'http://www.sparklinkplayjoy.com/' },
+  { text: 'Keyboard Driver', link: 'https://hub.sparklinkplayjoy.com/#/connect' },
+  { text: 'Latency Test', link: 'https://delay.sparklinkplayjoy.com/home   ' },
 ];

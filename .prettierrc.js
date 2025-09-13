@@ -1,37 +1,37 @@
 export default {
-  // 一行最多 120 字符
+  // Maximum line width is 120 characters
   printWidth: 120,
-  // 使用 2 个空格缩进
+  // Use 2 spaces for indentation
   tabWidth: 2,
-  // 不使用缩进符，而使用空格
+  // Use spaces instead of tabs
   useTabs: false,
-  // 行尾需要有分号
+  // Require semicolons at the end of lines
   semi: true,
-  // 使用单引号
+  // Use single quotes
   singleQuote: true,
-  // 对象的 key 仅在必要时用引号
+  // Only quote object keys when necessary
   quoteProps: 'as-needed',
-  // jsx 不使用单引号，而使用双引号
+  // Use double quotes in JSX
   jsxSingleQuote: false,
-  // 末尾需要有逗号
+  // Require trailing commas
   trailingComma: 'all',
-  // 大括号内的首尾需要空格
+  // Add spaces inside brackets
   bracketSpacing: true,
-  // 箭头函数，只有一个参数的时候，也需要括号
+  // Always include parentheses for arrow function parameters
   arrowParens: 'always',
-  // 每个文件格式化的范围是文件的全部内容
+  // Format the entire file
   rangeStart: 0,
   rangeEnd: Infinity,
-  // 不需要写文件开头的 @prettier
+  // Do not require a @prettier pragma at the top of files
   requirePragma: false,
-  // 不需要自动在文件开头插入 @prettier
+  // Do not insert a @prettier pragma automatically
   insertPragma: false,
-  // 使用默认的折行标准
+  // Use the default line wrapping rules
   proseWrap: 'preserve',
-  // 根据显示样式决定 html 要不要折行
+  // Respect the display style when deciding whether to wrap HTML
   htmlWhitespaceSensitivity: 'css',
-  // vue 文件中的 script 和 style 内不用缩进
+  // Do not indent script and style tags in Vue files
   vueIndentScriptAndStyle: false,
-  // 换行符使用 lf
+  // Use LF for line endings
   endOfLine: 'lf',
 };

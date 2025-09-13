@@ -3,10 +3,10 @@ import sidebar from './option/sidebar.js';
 import nav from './option/nav.js';
 
 export default defineConfig({
-  title: '星闪悦动',
-  description: '星闪悦动',
+  title: 'SparkLink PlayJoy',
+  description: 'SparkLink PlayJoy',
   logo: '/logo.svg',
-  lang: 'zh-CN',
+  lang: 'en-US',
   base: '/keyboard-docs/',
   lastUpdated: true,
   themeConfig: {
@@ -17,11 +17,11 @@ export default defineConfig({
       provider: 'local',
     },
     docFooter: {
-      prev: '上一页',
-      next: '下一页',
+      prev: 'Previous page',
+      next: 'Next page',
     },
     lastUpdated: {
-      text: '更新时间',
+      text: 'Last updated',
       formatOptions: {
         dateStyle: 'full',
         timeStyle: 'medium',
@@ -29,7 +29,7 @@ export default defineConfig({
     },
     outline: {
       level: [2, 3],
-      label: '目录',
+      label: 'Table of Contents',
     },
   },
 });
