@@ -1,98 +1,108 @@
-# 高级按键功能
+# Advanced button function
 
-## 获取高级键类型
+## Get advanced key types
+
 ServiceKeyboard.getHigherKey()
 
-**简要描述:**
-获取指定按键位置的高级键类型。
+**Brief description:**
+Gets the advanced key type for the specified key position.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置信息的对象。                                                                             | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ row: number, col: number, mode: number }>`
+| Parameter name | Type     | Description                                          | Required | Default |
+| :------------- | :------- | :--------------------------------------------------- | :------- | :------ |
+| `params`       | `object` | Object containing key position information.          | Yes      | None    |
+| `params.row`   | `number` | The row number of the key in the keyboard matrix.    | Yes      | None    |
+| `params.col`   | `number` | The column number of the key in the keyboard matrix. | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含按键位置和高级键类型信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ row: number, col: number, mode: number }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing key position and advanced key type information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `5`    |
-| `col`    | `number` | 按键的列号。     | `2`    |
-| `mode`   | `number` | 高级键类型。     | `1`    |
+| `row` | `number` | Line number of the key.| `5` |
+| `col` | `number` | The column number of the key.| `2` |
+| `mode` | `number` | Advanced key type.| `1` |
 
-**mode 值说明:**
-- `0`: 没有高级键
-- `1`: DKS（动态键程）
-- `2`: MPT（多点触发）
-- `3`: MT（模式切换/触发延迟）
-- `4`: TGL（触发延迟）
-- `5`: END（结束触发）
-- `6`: SOCD（同时按下冲突解决）
-- `7`: RS（保留）
+**mode value description:**
 
-### 使用示例
+- `0`: No advanced key
+- `1`: DKS (dynamic keying)
+- `2`: MPT (multi-triggered)
+- `3`: MT (Mode Switch/Trigger Delay)
+- `4`: TGL (trigger delay)
+- `5`: END (end trigger)
+- `6`: SOCD (press conflict resolution at the same time)
+- `7`: RS (reserved)
+
+### Example of usage
+
 ```js
 async function getHigherKeyType(row, col) {
   try {
     const result = await ServiceKeyboard.getHigherKey({ row, col });
-    console.log(`按键位置 (${row}, ${col}) 的高级键类型:`, result);
-    
-    // 根据 mode 值判断高级键类型
+    console.log(`Key position (${row}, ${col}) advanced key type:`, result);
+
+    //Judge advanced key types based on mode value
     const modeMap = {
-      0: '无高级键',
+      0: 'No advanced key',
       1: 'DKS',
       2: 'MPT',
       3: 'MT',
       4: 'TGL',
       5: 'END',
       6: 'SOCD',
-      7: 'RS'
+      7: 'RS',
     };
-    
-    console.log(`高级键类型: ${modeMap[result.mode]}`);
+
+    console.log(`Advanced key type: ${modeMap[result.mode]}`);
   } catch (error) {
-    console.error('获取高级键类型失败:', error);
+    console.error('Failed to get advanced key type:', error);
   }
 }
 
-// 示例：获取位置为 (5, 0) 的按键的高级键类型
+// Example: Get advanced key type for keys with position (5, 0)
 // getHigherKeyType(5, 0);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示按键在键盘矩阵中的位置。
-*   `mode` 值表示该按键配置的高级键类型，可用于判断后续需要调用哪个高级键相关的接口。
-:::
 
-## 删除高级键
+- `row` and `col` indicate the position of the keys in the keyboard matrix.
+- The `mode` value represents the advanced key type configured by this key, and can be used to determine which advanced key related interface needs to be called in the future.
+  :::
+
+## Delete Advanced Key
+
 ServiceKeyboard.setHigherKeyNONE()
 
-**简要描述:**
-删除指定按键位置的高级键设置。
+**Brief description:**
+Delete advanced key settings for the specified key position.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和删除设置的对象。                                                                       | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
-| `params.mode` | `string` | 设置为 'NONE' 表示删除高级键。                                                                      | 是       | 无     |
-| `params.data` | `object` | 包含删除设置的数据对象。                                                                           | 是       | 无     |
-| `params.data.mode` | `number` | 设置为 0 表示删除高级键。                                                                          | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<void>`
+| Parameter name     | Type     | Description                                          | Required | Default |
+| :----------------- | :------- | :--------------------------------------------------- | :------- | :------ |
+| `params`           | `object` | Object containing key position and delete settings.  | Yes      | None    |
+| `params.row`       | `number` | The row number of the key in the keyboard matrix.    | Yes      | None    |
+| `params.col`       | `number` | The column number of the key in the keyboard matrix. | Yes      | None    |
+| `params.mode`      | `string` | Set to 'NONE' to delete the advanced key.            | Yes      | None    |
+| `params.data`      | `object` | Data object containing the delete settings.          | Yes      | None    |
+| `params.data.mode` | `number` | Set to 0 to delete the advanced key.                 | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 在操作成功时解析为 `void`。
+### Return value
 
-### 使用示例
+**Type:** `Promise<void>`
+
+**Description:** Returns a `Promise`, which resolves to `void` when the operation is successful.
+
+### Example of usage
+
 ```js
 async function deleteHigherKey(row, col) {
   try {
@@ -101,64 +111,69 @@ async function deleteHigherKey(row, col) {
       col,
       mode: 'NONE',
       data: {
-        mode: 0
-      }
+        mode: 0,
+      },
     };
-    
+
     await ServiceKeyboard.setHigherKeyNONE(params);
-    console.log(`按键位置 (${row}, ${col}) 的高级键设置已删除`);
+    console.log(`The advanced key settings for key position (${row}, ${col}) have been deleted`);
   } catch (error) {
-    console.error('删除高级键设置失败:', error);
+    console.error('Delete advanced key setting failed:', error);
   }
 }
 
-// 示例：删除位置为 (5, 0) 的按键的高级键设置
+// Example: Delete advanced key settings for keys with position (5, 0)
 // deleteHigherKey(5, 0);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示要删除高级键设置的按键位置。
-*   `mode` 必须设置为 'NONE'。
-*   `data.mode` 必须设置为 0。
-*   此操作会删除该按键的所有高级键设置。
-:::
 
-## 设置DKS高级键
+- `row` and `col` indicate the key position to delete the advanced key settings.
+- `mode` must be set to 'NONE'.
+- `data.mode` must be set to 0.
+- This action deletes all advanced key settings for this key.
+  :::
+
+## Set DKS Advanced Key
+
 ServiceKeyboard.setHigherKeyDKS()
 
-**简要描述:**
-为指定按键位置设置DKS（动态键程）高级键配置。
+**Brief description:**
+Sets DKS (Dynamic Key Path) Advanced Key Configuration for the specified key position.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和DKS设置的对象。                                                                        | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
-| `params.data` | `object` | 包含DKS配置的数据对象。                                                                           | 是       | 无     |
-| `params.data.kcs` | `number[]` | DKS各层级的键值数组，长度为4。                                                                     | 是       | 无     |
-| `params.data.trps` | `number[]` | DKS各层级的触发点行程参数数组，长度为4。                                                           | 是       | 无     |
-| `params.data.dbs` | `number[]` | DKS的死区设置数组，长度为2，单位为mm。                                                             | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], trps: number[], dbs: number[] } }>`
+| Parameter name     | Type       | Description                                                 | Required | Default |
+| :----------------- | :--------- | :---------------------------------------------------------- | :------- | :------ |
+| `params`           | `object`   | Object containing key position and DKS settings.            | Yes      | None    |
+| `params.row`       | `number`   | The row number of the key in the keyboard matrix.           | Yes      | None    |
+| `params.col`       | `number`   | The column number of the key in the keyboard matrix.        | Yes      | None    |
+| `params.data`      | `object`   | Data object containing DKS configuration.                   | Yes      | None    |
+| `params.data.kcs`  | `number[]` | A key value array at each level of DKS, with a length of 4. | Yes      | None    |
+| `params.data.trps` | `number[]` | DKS trigger point stroke parameter array, length 4.         | Yes      | None    |
+| `params.data.dbs`  | `number[]` | DKS dead zone settings array, length is 2, unit is mm.      | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含设置后的DKS配置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], trps: number[], dbs: number[] } }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the set DKS configuration information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `4`    |
-| `col`    | `number` | 按键的列号。     | `6`    |
-| `mode`   | `number` | 高级键类型，固定为1（DKS）。 | `1`    |
-| `data`   | `object` | DKS配置数据。    | -      |
-| `data.kcs` | `number[]` | DKS各层级的键值数组。 | `[20, 26, 8, 9]` |
-| `data.trps` | `number[]` | DKS各层级的触发点行程参数数组。 | `[127, 120, 120, 120]` |
-| `data.dbs` | `number[]` | DKS的行程设置数组。第0位为最小行程，第1位为最大行程 | `[1.5, 3]` |
+| `row` | `number` | Line number of the key.| `4` |
+| `col` | `number` | The column number of the key.| `6` |
+| `mode` | `number` | Advanced key type, fixed to 1 (DKS).| `1` |
+| `data` | `object` | DKS configuration data.| - |
+| `data.kcs` | `number[]` | A key value array at each level of DKS.| `[20, 26, 8, 9]` |
+| `data.trps` | `number[]` | Array of trigger point travel parameters at each level of DKS.| `[127, 120, 120, 120]` |
+| `data.dbs` | `number[]` | DKS's itinerary settings array.The 0th position is the minimum itinerary, and the 1st position is the maximum itinerary | `[1.5, 3]` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setDksHigherKey(row, col, kcs, trps, dbs) {
   try {
@@ -171,63 +186,68 @@ async function setDksHigherKey(row, col, kcs, trps, dbs) {
         dbs
       }
     };
-    
+
     const result = await ServiceKeyboard.setHigherKeyDKS(params);
-    console.log(`按键位置 (${row}, ${col}) 的DKS设置已更新:`, result);
+The DKS setting of console.log(`key position (${row}, ${col}) has been updated:`, result);
   } catch (error) {
-    console.error('设置DKS高级键失败:', error);
+console.error('Setting DKS advanced key failed:', error);
   }
 }
 
-// 示例：设置位置为 (4, 6) 的按键的DKS配置
+// Example: Set the DKS configuration of the key with position (4, 6)
 // const exampleKcs = [20, 26, 8, 9];
 // const exampleTrps = [127, 120, 120, 120];
 // const exampleDbs = [1.5, 3];
 // setDksHigherKey(4, 6, exampleKcs, exampleTrps, exampleDbs);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示要设置DKS的按键位置。
-*   `kcs` 数组必须包含4个键值，分别对应DKS的4个层级。
-*   `trps` 数组必须包含4个触发点行程参数，分别对应DKS的4个层级，需转成二进制使用。
-*   `dbs` 数组必须包含2个行程值，第0位为最小行程，第1位为最大行程，单位为mm。
-*   返回的 `mode` 值固定为1，表示DKS类型。
-:::
 
-## 设置MPT高级键
+- `row` and `col` indicate the key position to set the DKS.
+- `kcs` array must contain 4 key values, corresponding to 4 levels of DKS.
+- `trps` array must contain 4 trigger point travel parameters, corresponding to the 4 levels of DKS, and must be converted into binary.
+- `dbs` array must contain 2 stroke values, the 0th bit is the minimum stroke, and the 1st bit is the maximum stroke, and the unit is mm.
+- The returned `mode` value is fixed to 1, indicating the DKS type.
+  :::
+
+## Setting MPT Advanced Key
+
 ServiceKeyboard.setHigherKeyMPT()
 
-**简要描述:**
-为指定按键位置设置MPT（多点触发）高级键配置。
+**Brief description:**
+Sets the MPT (Multi-Trigger) Advanced Key Configuration for the specified key position.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和MPT设置的对象。                                                                        | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
-| `params.data` | `object` | 包含MPT配置的数据对象。                                                                           | 是       | 无     |
-| `params.data.kcs` | `number[]` | MPT各层级的键值数组，长度为3。                                                                     | 是       | 无     |
-| `params.data.dbs` | `number[]` | MPT各层级的行程设置数组，长度为3，单位为mm。                                                       | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], dbs: number[] } }>`
+| Parameter name    | Type       | Description                                            | Required | Default |
+| :---------------- | :--------- | :----------------------------------------------------- | :------- | :------ |
+| `params`          | `object`   | Object containing key position and MPT settings.       | Yes      | None    |
+| `params.row`      | `number`   | The row number of the key in the keyboard matrix.      | Yes      | None    |
+| `params.col`      | `number`   | The column number of the key in the keyboard matrix.   | Yes      | None    |
+| `params.data`     | `object`   | Data object containing MPT configuration.              | Yes      | None    |
+| `params.data.kcs` | `number[]` | MPT key value array at each level, with a length of 3. | Yes      | None    |
+| `params.data.dbs` | `number[]` | MPT stroke settings array, length is 3, unit is mm.    | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含设置后的MPT配置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], dbs: number[] } }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the set MPT configuration information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `3`    |
-| `col`    | `number` | 按键的列号。     | `7`    |
-| `mode`   | `number` | 高级键类型，固定为2（MPT）。 | `2`    |
-| `data`   | `object` | MPT配置数据。    | -      |
-| `data.kcs` | `number[]` | MPT各层级的键值数组。 | `[13, 4, 9]` |
-| `data.dbs` | `number[]` | MPT各层级的行程设置数组，单位为0.001mm。 | `[500, 1000, 1500]` |
+| `row` | `number` | Line number of the key.| `3` |
+| `col` | `number` | The column number of the key.| `7` |
+| `mode` | `number` | Advanced key type, fixed to 2 (MPT).| `2` |
+| `data` | `object` | MPT configuration data.| - |
+| `data.kcs` | `number[]` | MPT key value array at each level.| `[13, 4, 9]` |
+| `data.dbs` | `number[]` | MPT stroke settings array at each level, unit is 0.001mm.| `[500, 1000, 1500]` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setMptHigherKey(row, col, kcs, dbs) {
   try {
@@ -239,63 +259,68 @@ async function setMptHigherKey(row, col, kcs, dbs) {
         dbs
       }
     };
-    
+
     const result = await ServiceKeyboard.setHigherKeyMPT(params);
-    console.log(`按键位置 (${row}, ${col}) 的MPT设置已更新:`, result);
+The MPT setting of console.log(`key position (${row}, ${col}) has been updated:`, result);
   } catch (error) {
-    console.error('设置MPT高级键失败:', error);
+console.error('Setting MPT advanced key failed:', error);
   }
 }
 
-// 示例：设置位置为 (3, 7) 的按键的MPT配置
+// Example: Set the MPT configuration of the button with position (3, 7)
 // const exampleKcs = [13, 4, 9];
-// const exampleDbs = [0.5, 1, 1.5];  // 单位为mm
+// const exampleDbs = [0.5, 1, 1.5]; // Unit is mm
 // setMptHigherKey(3, 7, exampleKcs, exampleDbs);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示要设置MPT的按键位置。
-*   `kcs` 数组必须包含3个键值，分别对应MPT的3个层级。
-*   `dbs` 数组必须包含3个行程值，分别对应MPT的3个层级，单位为mm。
-*   返回的 `mode` 值固定为2，表示MPT类型。
-*   返回的 `dbs` 数组中的值单位为0.001mm，例如500表示0.5mm。
-:::
 
-## 设置MT高级键
+- `row` and `col` indicate the key position to set the MPT.
+- `kcs` array must contain 3 key values, corresponding to the 3 levels of MPT respectively.
+- The `dbs` array must contain 3 stroke values, corresponding to the 3 levels of MPT, and the unit is mm.
+- The returned `mode` value is fixed to 2, indicating the MPT type.
+- The returned value unit in the `dbs` array is 0.001mm, for example, 500 means 0.5mm.
+  :::
+
+## Setting MT Advanced Key
+
 ServiceKeyboard.setHigherKeyMT()
 
-**简要描述:**
-为指定按键位置设置MT（模式切换/触发延迟）高级键配置。
+**Brief description:**
+Sets MT (Mode Switch/Trigger Delay) Advanced Key Configuration for the specified key position.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和MT设置的对象。                                                                         | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
-| `params.mode` | `string` | 设置为 'MT' 表示设置MT高级键。                                                                      | 是       | 无     |
-| `params.data` | `object` | 包含MT配置的数据对象。                                                                           | 是       | 无     |
-| `params.data.time` | `number` | 延迟时间，单位为ms。                                                                               | 是       | 无     |
-| `params.data.kcs` | `number[]` | MT的键值数组，长度为2。                                                                           | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], time: number } }>`
+| Parameter name     | Type       | Description                                          | Required | Default |
+| :----------------- | :--------- | :--------------------------------------------------- | :------- | :------ |
+| `params`           | `object`   | Object containing key position and MT settings.      | Yes      | None    |
+| `params.row`       | `number`   | The row number of the key in the keyboard matrix.    | Yes      | None    |
+| `params.col`       | `number`   | The column number of the key in the keyboard matrix. | Yes      | None    |
+| `params.mode`      | `string`   | Set to 'MT' means setting the MT Advanced Key.       | Yes      | None    |
+| `params.data`      | `object`   | Data object containing MT configuration.             | Yes      | None    |
+| `params.data.time` | `number`   | Delay time in ms.                                    | Yes      | None    |
+| `params.data.kcs`  | `number[]` | MT's key value array, length 2.                      | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含设置后的MT配置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], time: number } }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the set MT configuration information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `3`    |
-| `col`    | `number` | 按键的列号。     | `5`    |
-| `mode`   | `number` | 高级键类型，固定为3（MT）。 | `3`    |
-| `data`   | `object` | MT配置数据。    | -      |
-| `data.kcs` | `number[]` | MT的键值数组。 | `[16, 18]` |
-| `data.time` | `number` | 延迟时间，单位为ms。 | `200` |
+| `row` | `number` | Line number of the key.| `3` |
+| `col` | `number` | The column number of the key.| `5` |
+| `mode` | `number` | Advanced key type, fixed to 3 (MT).| `3` |
+| `data` | `object` | MT configuration data.| - |
+| `data.kcs` | `number[]` | Key value array of MT.| `[16, 18]` |
+| `data.time` | `number` | Delay time in ms.| `200` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setMtHigherKey(row, col, time, kcs) {
   try {
@@ -305,66 +330,71 @@ async function setMtHigherKey(row, col, time, kcs) {
       mode: 'MT',
       data: {
         time,
-        kcs
-      }
+        kcs,
+      },
     };
-    
+
     const result = await ServiceKeyboard.setHigherKeyMT(params);
-    console.log(`按键位置 (${row}, ${col}) 的MT设置已更新:`, result);
+    console.log(`MT settings for key position (${row}, ${col}) have been updated:`, result);
   } catch (error) {
-    console.error('设置MT高级键失败:', error);
+    console.error('Setting MT advanced key failed:', error);
   }
 }
 
-// 示例：设置位置为 (3, 5) 的按键的MT配置
+// Example: Set the MT configuration of the key with position (3, 5)
 // const exampleTime = 200;  // 200ms
 // const exampleKcs = [16, 18];
 // setMtHigherKey(3, 5, exampleTime, exampleKcs);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示要设置MT的按键位置。
-*   `mode` 必须设置为 'MT'。
-*   `time` 表示延迟时间，单位为ms。
-*   `kcs` 数组必须包含2个键值。
-*   返回的 `mode` 值固定为3，表示MT类型。
-:::
 
-## 设置TGL高级键
+- `row` and `col` indicate the key position to set the MT.
+- `mode` must be set to 'MT'.
+- `time` represents the delay time, in ms.
+- `kcs` array must contain 2 key values.
+- The returned `mode` value is fixed to 3, indicating the MT type.
+  :::
+
+## Setting TGL Advanced Key
+
 ServiceKeyboard.setHigherKeyTGL()
 
-**简要描述:**
-为指定按键位置设置TGL（触发延迟）高级键配置。
+**Brief description:**
+Sets TGL (trigger delay) advanced key configuration for specified key positions.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和TGL设置的对象。                                                                         | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
-| `params.mode` | `string` | 设置为 'TGL' 表示设置TGL高级键。                                                                      | 是       | 无     |
-| `params.data` | `object` | 包含TGL配置的数据对象。                                                                           | 是       | 无     |
-| `params.data.kcs` | `number` | TGL的键值。                                                                                       | 是       | 无     |
-| `params.data.delay` | `number` | 延迟时间，单位为ms。                                                                               | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number, time: number } }>`
+| Parameter name      | Type     | Description                                          | Required | Default |
+| :------------------ | :------- | :--------------------------------------------------- | :------- | :------ |
+| `params`            | `object` | Object containing key position and TGL settings.     | Yes      | None    |
+| `params.row`        | `number` | The row number of the key in the keyboard matrix.    | Yes      | None    |
+| `params.col`        | `number` | The column number of the key in the keyboard matrix. | Yes      | None    |
+| `params.mode`       | `string` | Set to 'TGL' means setting the TGL advanced key.     | Yes      | None    |
+| `params.data`       | `object` | Data object containing TGL configuration.            | Yes      | None    |
+| `params.data.kcs`   | `number` | TGL's key value.                                     | Yes      | None    |
+| `params.data.delay` | `number` | Delay time in ms.                                    | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含设置后的TGL配置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number, time: number } }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the set TGL configuration information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `4`    |
-| `col`    | `number` | 按键的列号。     | `4`    |
-| `mode`   | `number` | 高级键类型，固定为4（TGL）。 | `4`    |
-| `data`   | `object` | TGL配置数据。    | -      |
-| `data.kcs` | `number` | TGL的键值。 | `29` |
-| `data.time` | `number` | 延迟时间，单位为ms。 | `0` |
+| `row` | `number` | Line number of the key.| `4` |
+| `col` | `number` | The column number of the key.| `4` |
+| `mode` | `number` | Advanced key type, fixed to 4 (TGL).| `4` |
+| `data` | `object` | TGL configuration data.| - |
+| `data.kcs` | `number` | TGL's key value.| `29` |
+| `data.time` | `number` | Delay time in ms.| `0` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setTglHigherKey(row, col, kcs, delay) {
   try {
@@ -377,64 +407,69 @@ async function setTglHigherKey(row, col, kcs, delay) {
         delay
       }
     };
-    
+
     const result = await ServiceKeyboard.setHigherKeyTGL(params);
-    console.log(`按键位置 (${row}, ${col}) 的TGL设置已更新:`, result);
+The TGL setting of console.log(`key position (${row}, ${col}) has been updated:`, result);
   } catch (error) {
-    console.error('设置TGL高级键失败:', error);
+console.error('Setting TGL advanced key failed:', error);
   }
 }
 
-// 示例：设置位置为 (4, 4) 的按键的TGL配置
+// Example: Setting the TGL configuration for keys with position (4, 4)
 // const exampleKcs = 29;
 // const exampleDelay = 200;  // 200ms
 // setTglHigherKey(4, 4, exampleKcs, exampleDelay);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示要设置TGL的按键位置。
-*   `mode` 必须设置为 'TGL'。
-*   `kcs` 为单个键值，不是数组。
-*   `delay` 表示延迟时间，单位为ms。
-*   返回的 `mode` 值固定为4，表示TGL类型。
-*   返回的 `time` 字段值固定为0。
-:::
 
-## 设置END高级键
+- `row` and `col` indicate the key position to set the TGL.
+- `mode` must be set to 'TGL'.
+- `kcs` is a single key value, not an array.
+- `delay` represents the delay time, in ms.
+- The returned `mode` value is fixed to 4, indicating the TGL type.
+- The returned `time` field value is fixed to 0.
+  :::
+
+## Set the END Advanced Key
+
 ServiceKeyboard.setHigherKeyEND()
 
-**简要描述:**
-为指定按键位置设置END（结束触发）高级键配置。
+**Brief description:**
+Sets the END (end trigger) advanced key configuration for the specified key position.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和END设置的对象。                                                                         | 是       | 无     |
-| `params.row` | `number` | 按键在键盘矩阵中的行号。                                                                           | 是       | 无     |
-| `params.col` | `number` | 按键在键盘矩阵中的列号。                                                                           | 是       | 无     |
-| `params.mode` | `string` | 设置为 'END' 表示设置END高级键。                                                                      | 是       | 无     |
-| `params.data` | `object` | 包含END配置的数据对象。                                                                           | 是       | 无     |
-| `params.data.kcs` | `number[]` | END的键值数组，长度为2。                                                                           | 是       | 无     |
-| `params.data.delay` | `number` | 延迟时间，单位为ms。                                                                               | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], delay: number } }>`
+| Parameter name      | Type       | Description                                          | Required | Default |
+| :------------------ | :--------- | :--------------------------------------------------- | :------- | :------ |
+| `params`            | `object`   | Object containing key position and END settings.     | Yes      | None    |
+| `params.row`        | `number`   | The row number of the key in the keyboard matrix.    | Yes      | None    |
+| `params.col`        | `number`   | The column number of the key in the keyboard matrix. | Yes      | None    |
+| `params.mode`       | `string`   | Set to 'END' means setting the END advanced key.     | Yes      | None    |
+| `params.data`       | `object`   | Data object containing the END configuration.        | Yes      | None    |
+| `params.data.kcs`   | `number[]` | END's key value array, length 2.                     | Yes      | None    |
+| `params.data.delay` | `number`   | Delay time in ms.                                    | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个对象，包含设置后的END配置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<{ row: number, col: number, mode: number, data: { kcs: number[], delay: number } }>`
+
+**Description:** Returns a `Promise`, which resolves to an object, containing the set END configuration information.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `4`    |
-| `col`    | `number` | 按键的列号。     | `4`    |
-| `mode`   | `number` | 高级键类型，固定为5（END）。 | `5`    |
-| `data`   | `object` | END配置数据。    | -      |
-| `data.kcs` | `number[]` | END的键值数组。 | `[21, 22]` |
-| `data.delay` | `number` | 延迟时间，单位为ms。 | `200` |
+| `row` | `number` | Line number of the key.| `4` |
+| `col` | `number` | The column number of the key.| `4` |
+| `mode` | `number` | Advanced key type, fixed to 5 (END).| `5` |
+| `data` | `object` | END configuration data.| - |
+| `data.kcs` | `number[]` | END's key-value array.| `[21, 22]` |
+| `data.delay` | `number` | Delay time in ms.| `200` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setEndHigherKey(row, col, kcs, delay) {
   try {
@@ -444,71 +479,76 @@ async function setEndHigherKey(row, col, kcs, delay) {
       mode: 'END',
       data: {
         kcs,
-        delay
-      }
+        delay,
+      },
     };
-    
+
     const result = await ServiceKeyboard.setHigherKeyEND(params);
-    console.log(`按键位置 (${row}, ${col}) 的END设置已更新:`, result);
+    console.log(`END setting of key position (${row}, ${col}) has been updated:`, result);
   } catch (error) {
-    console.error('设置END高级键失败:', error);
+    console.error('Setting END advanced key failed:', error);
   }
 }
 
-// 示例：设置位置为 (4, 4) 的按键的END配置
+// Example: Set the END configuration of the button with position (4, 4)
 // const exampleKcs = [21, 22];
 // const exampleDelay = 200;  // 200ms
 // setEndHigherKey(4, 4, exampleKcs, exampleDelay);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示要设置END的按键位置。
-*   `mode` 必须设置为 'END'。
-*   `kcs` 数组必须包含2个键值。
-*   `delay` 表示延迟时间，单位为ms。
-*   返回的 `mode` 值固定为5，表示END类型。
-:::
 
-## 设置SOCD高级键
+- `row` and `col` indicate the key position to set END.
+- `mode` must be set to 'END'.
+- `kcs` array must contain 2 key values.
+- `delay` represents the delay time, in ms.
+- The returned `mode` value is fixed to 5, indicating the END type.
+  :::
+
+## Set SOCD Advanced Key
+
 ServiceKeyboard.setHigherKeySOCD()
 
-**简要描述:**
-为指定按键位置设置SOCD（同时按下冲突解决）高级键配置。SOCD功能为绑定两个按键，后按下的按键会强制释放前一个按键，同一时刻只会触发一个按键。
+**Brief description:**
+Set SOCD (press conflict resolution simultaneously) advanced key configuration for the specified key position.The SOCD function is to bind two keys. The button pressed later will force the previous key to release, and only one key will be triggered at the same time.
 
-### 参数
-| 参数名称 | 类型     | 描述                                                                                                | 是否必需 | 默认值 |
-| :------- | :------- | :-------------------------------------------------------------------------------------------------- | :------- | :----- |
-| `params` | `object` | 包含按键位置和SOCD设置的对象。                                                                       | 是       | 无     |
-| `params.row` | `number` | 第一个按键在键盘矩阵中的行号。                                                                     | 是       | 无     |
-| `params.col` | `number` | 第一个按键在键盘矩阵中的列号。                                                                     | 是       | 无     |
-| `params.row2` | `number` | 第二个按键在键盘矩阵中的行号。                                                                     | 是       | 无     |
-| `params.col2` | `number` | 第二个按键在键盘矩阵中的列号。                                                                     | 是       | 无     |
-| `params.mode` | `string` | 设置为 'SOCD' 表示设置SOCD高级键。                                                                  | 是       | 无     |
-| `params.socdMode` | `number` | SOCD模式：0=后覆盖，1=前优先，2=后优先，3=中性（两个按键都按下都不生效）。                         | 是       | 无     |
-| `params.delay` | `number` | 延迟时间，单位为ms。                                                                               | 是       | 无     |
-| `params.kcs` | `number[]` | SOCD的键值数组，长度为2。                                                                         | 是       | 无     |
+### parameter
 
-### 返回值
-**类型:** `Promise<Array<{ row: number, col: number, mode: number, data: { row2: number, col2: number, kcs: number[], delay: number, socdMode: number } }>>`
+| Parameter name    | Type       | Description                                                                                                    | Required | Default |
+| :---------------- | :--------- | :------------------------------------------------------------------------------------------------------------- | :------- | :------ |
+| `params`          | `object`   | Object containing key position and SOCD settings.                                                              | Yes      | None    |
+| `params.row`      | `number`   | The row number of the first key in the keyboard matrix.                                                        | Yes      | None    |
+| `params.col`      | `number`   | column number of the first key in the keyboard matrix.                                                         | Yes      | None    |
+| `params.row2`     | `number`   | The row number of the second key in the keyboard matrix.                                                       | Yes      | None    |
+| `params.col2`     | `number`   | The column number of the second key in the keyboard matrix.                                                    | Yes      | None    |
+| `params.mode`     | `string`   | Set to 'SOCD' means setting the SOCD advanced key.                                                             | Yes      | None    |
+| `params.socdMode` | `number`   | SOCD mode: 0=back overwrite, 1=front priority, 2=back priority, 3=neutral (both pressed does not take effect). | Yes      | None    |
+| `params.delay`    | `number`   | Delay time in ms.                                                                                              | Yes      | None    |
+| `params.kcs`      | `number[]` | SOCD's key value array, length 2.                                                                              | Yes      | None    |
 
-**描述:** 返回一个 `Promise`，该 `Promise` 解析为一个数组，包含两个对象的SOCD配置信息。
+### Return value
 
-**内容:**
-| 字段名称 | 类型     | 描述             | 示例值 |
+**Type:** `Promise<Array<{ row: number, col: number, mode: number, data: { row2: number, col2: number, kcs: number[], delay: number, socdMode: number } }>>`
+
+**Description:** Returns a `Promise`, which is parsed into an array containing the SOCD configuration information of two objects.
+
+**content:**
+| Field Name | Type | Description | Sample Value |
 | :------- | :------- | :--------------- | :----- |
-| `row`    | `number` | 按键的行号。     | `3`    |
-| `col`    | `number` | 按键的列号。     | `6`    |
-| `mode`   | `number` | 高级键类型，固定为6（SOCD）。 | `6`    |
-| `data`   | `object` | SOCD配置数据。    | -      |
-| `data.row2` | `number` | 配对按键的行号。 | `3` |
-| `data.col2` | `number` | 配对按键的列号。 | `7` |
-| `data.kcs` | `number[]` | SOCD的键值数组。 | `[16, 18]` |
-| `data.delay` | `number` | 延迟时间，单位为ms。 | `0` |
-| `data.socdMode` | `number` | SOCD模式。 | `0` |
+| `row` | `number` | Line number of the key.| `3` |
+| `col` | `number` | The column number of the key.| `6` |
+| `mode` | `number` | Advanced key type, fixed to 6 (SOCD).| `6` |
+| `data` | `object` | SOCD configuration data.| - |
+| `data.row2` | `number` | Line number of paired keys.| `3` |
+| `data.col2` | `number` | The column number of the paired key.| `7` |
+| `data.kcs` | `number[]` | SOCD's key value array.| `[16, 18]` |
+| `data.delay` | `number` | Delay time in ms.| `0` |
+| `data.socdMode` | `number` | SOCD mode.| `0` |
 
-### 使用示例
+### Example of usage
+
 ```js
 async function setSocdHigherKey(row, col, row2, col2, socdMode, delay, kcs) {
   try {
@@ -522,33 +562,34 @@ async function setSocdHigherKey(row, col, row2, col2, socdMode, delay, kcs) {
       delay,
       kcs
     };
-    
+
     const result = await ServiceKeyboard.setHigherKeySOCD(params);
-    console.log(`按键位置 (${row}, ${col}) 和 (${row2}, ${col2}) 的SOCD设置已更新:`, result);
+The SOCD settings of console.log(`Key position (${row}, ${col}) and (${row2}, ${col2}) have been updated:`, result);
   } catch (error) {
-    console.error('设置SOCD高级键失败:', error);
+console.error('Setting SOCD advanced key failed:', error);
   }
 }
 
-// 示例：设置位置为 (3, 6) 和 (3, 7) 的按键的SOCD配置
+// Example: Set the SOCD configuration of keys with positions (3, 6) and (3, 7)
 // const exampleKcs = [16, 18];
 // const exampleDelay = 0;  // 0ms
-// const exampleSocdMode = 0;  // 后覆盖模式
+// const exampleSocdMode = 0; // Post-overwrite mode
 // setSocdHigherKey(3, 6, 3, 7, exampleSocdMode, exampleDelay, exampleKcs);
 ```
 
-### 注意事项
+### Things to note
 
 ::: tip
-*   `row` 和 `col` 表示第一个按键的位置，`row2` 和 `col2` 表示第二个按键的位置。
-*   `mode` 必须设置为 'SOCD'。
-*   `kcs` 数组必须包含2个键值。
-*   `delay` 表示延迟时间，单位为ms。
-*   `socdMode` 表示SOCD的工作模式：
-    *   0: 后覆盖 - 后按下的按键会覆盖先按下的按键
-    *   1: 前优先 - 先按下的按键优先
-    *   2: 后优先 - 后按下的按键优先
-    *   3: 中性 - 两个按键都按下时都不生效
-*   返回的 `mode` 值固定为6，表示SOCD类型。
-*   返回值是一个数组，包含两个对象的配置信息，分别对应两个按键的设置。
-:::
+
+- `row` and `col` represent the position of the first key, and `row2` and `col2` represent the position of the second key.
+- `mode` must be set to 'SOCD'.
+- `kcs` array must contain 2 key values.
+- `delay` represents the delay time, in ms.
+- `socdMode` represents the working mode of SOCD:
+- 0: Back overwrite - The button pressed afterward will overwrite the first button pressed
+- 1: First priority - the first key pressed is preferred
+- 2: Post-Priority - Post-Priority button
+- 3: Neutral - No effect is taken when both buttons are pressed
+- The returned `mode` value is fixed to 6, indicating the SOCD type.
+- The return value is an array containing the configuration information of two objects, corresponding to the settings of the two keys.
+  :::

@@ -1,49 +1,49 @@
-# 键盘灯光
+# Keyboard lights
 
-## 获取灯光基础配置
+## Get basic lighting configuration
 
 ServiceKeyboard.getLightingBase()
 
-**简要描述:**
-获取指定区域的灯光基础配置信息。
+**Brief description:**
+Gets the basic lighting configuration information for the specified area.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述查询区域和配置类型的对象 |
-| `params.area` | `string` | 是 | 灯光区域，例如`Keyboard`,`Decorate1` |
-| `params.config` | `string` | 是 | 配置类型，例如 `Base`,`Palette`,`ColorCorrection` |
-| `lamp` | `string` | 否 | 描述灯的类型，例如"`SingleLighting`,`DoubleLighting` |
+| Parameter name  | Type     | Required | Description                                                            |
+| --------------- | -------- | -------- | ---------------------------------------------------------------------- |
+| `params`        | `object` | Yes      | Object describing query area and configuration type                    |
+| `params.area`   | `string` | Yes      | Lighting area, such as `Keyboard`,`Decorate1`                          |
+| `params.config` | `string` | Yes      | Configuration type, such as `Base`, `Palette`, `ColorCorrection`       |
+| `lamp`          | `string` | No       | Describe the type of light, such as "`SingleLighting`,`DoubleLighting` |
 
 ---
 
 ::: tip
 
-* 特殊灯效区域api见下方文档
-* 单灯位和双灯位见下方文档
+- See the document below for special lighting area api
+- See the document below for single and double lamp positions
 
 :::
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<DoubleLighting>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含灯光基础配置信息的对象。
-* **解析对象结构 (`DoubleLighting`):**
+- **Overall Type:** `Promise<DoubleLighting>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the basic configuration information of the lighting.
+- **Resolve object structure (`DoubleLighting`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `area` | `string` | 灯光区域 | `"Keyboard"` |
-| `open` | `string` | 灯光开关状态 | `"Open"` |
-| `mode` | `number` | 灯光模式 | `1` |
-| `luminance` | `number` | 灯光亮度 | `80` |
-| `speed` | `number` | 灯光速度 | `80` |
-| `direction` | `string` | 灯光方向`Forward`或者`Backward` | `Forward` |
-| `selectStaticColor` | `number` | 静态颜色选择 | `0` |
+| Field Name          | Type     | Description                                | Sample Value |
+| ------------------- | -------- | ------------------------------------------ | ------------ |
+| `area`              | `string` | Lighting area                              | `"Keyboard"` |
+| `open`              | `string` | Light switch status                        | `"Open"`     |
+| `mode`              | `number` | Lighting mode                              | `1`          |
+| `luminance`         | `number` | Light brightness                           | `80`         |
+| `speed`             | `number` | Lighting speed                             | `80`         |
+| `direction`         | `string` | lighting direction `Forward` or `Backward` | `Forward`    |
+| `selectStaticColor` | `number` | Static color selection                     | `0`          |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -59,18 +59,21 @@ ServiceKeyboard.getLightingBase()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getLightingBase() {
   try {
-    const result = await ServiceKeyboard.getLightingBase({
-      area: "Keyboard",
-      config: "Base"
-    },"DoubleLighting");
-    console.log('灯光基础配置:', result);
+    const result = await ServiceKeyboard.getLightingBase(
+      {
+        area: 'Keyboard',
+        config: 'Base',
+      },
+      'DoubleLighting',
+    );
+    console.log('Light basic configuration:', result);
   } catch (error) {
-    console.error('获取灯光基础配置失败:', error);
+    console.error('Failed to obtain the lighting basic configuration:', error);
   }
 }
 
@@ -79,50 +82,50 @@ getLightingBase();
 
 ---
 
-## 设置灯光基础配置
+## Set up the lighting basic configuration
 
 ServiceKeyboard.setLightingBase()
 
-**简要描述:**
-设置指定区域的灯光基础配置信息。
+**Brief description:**
+Sets the lighting basic configuration information for the specified area.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述设置区域和配置的对象 |
-| `params.area` | `string` | 是 | 灯光区域，例如`Keyboard`,`Decorate1`|
-| `params.config` | `string` | 是 | 配置类型，例如 `Base`,`Palette`,`ColorCorrection` |
-| `params.data` | `object` | 是 | 要设置的灯光配置数据 |
-| `params.data.open` | `string` | 是 | 灯光开关状态，例如 `"Open"` |
-| `params.data.mode` | `number` | 是 | 灯光模式 |
-| `params.data.luminance` | `number` | 是 | 灯光亮度 |
-| `params.data.speed` | `number` | 是 | 灯光速度 |
-| `params.data.direction` | `string` | 是 | 灯光方向`Forward`或者`Backward` |
-| `params.data.selectStaticColor` | `number` | 是 | 静态颜色选择 |
-| `lamp` | `string` | 否 | 描述灯的类型，例如`SingleLighting`,`DoubleLighting` |
+| Parameter name                  | Type     | Required | Description                                                            |
+| ------------------------------- | -------- | -------- | ---------------------------------------------------------------------- |
+| `params`                        | `object` | Yes      | Object describing the setting area and configuration                   |
+| `params.area`                   | `string` | Yes      | Lighting area, such as `Keyboard`,`Decorate1`                          |
+| `params.config`                 | `string` | Yes      | Configuration type, such as `Base`, `Palette`, `ColorCorrection`       |
+| `params.data`                   | `object` | Yes      | Light configuration data to be set                                     |
+| `params.data.open`              | `string` | Yes      | Light switch status, e.g. `"Open"`                                     |
+| `params.data.mode`              | `number` | Yes      | Lighting Mode                                                          |
+| `params.data.luminance`         | `number` | Yes      | Light Brightness                                                       |
+| `params.data.speed`             | `number` | Yes      | Lighting Speed ​​                                                      |
+| `params.data.direction`         | `string` | Yes      | Lighting direction `Forward` or `Backward`                             |
+| `params.data.selectStaticColor` | `number` | Yes      | Static color selection                                                 |
+| `lamp`                          | `string` | No       | Describe the type of light, such as `SingleLighting`, `DoubleLighting` |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<DoubleLighting>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含设置后的灯光基础配置信息的对象。
-* **解析对象结构 (`DoubleLighting`):**
+- **Overall Type:** `Promise<DoubleLighting>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the set lighting basic configuration information.
+- **Resolve object structure (`DoubleLighting`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `area` | `string` | 灯光区域 | `"Keyboard"` |
-| `open` | `string` | 灯光开关状态 | `"Open"` |
-| `mode` | `number` | 灯光模式 | `0` |
-| `luminance` | `number` | 灯光亮度 | `80` |
-| `speed` | `number` | 灯光速度 | `80` |
-| `direction` | `string` | 灯光方向`Forward`或者`Backward` | `"Forward"` |
-| `selectStaticColor` | `number` | 静态颜色选择 | `0` |
+| Field Name          | Type     | Description                                | Sample Value |
+| ------------------- | -------- | ------------------------------------------ | ------------ |
+| `area`              | `string` | Lighting area                              | `"Keyboard"` |
+| `open`              | `string` | Light switch status                        | `"Open"`     |
+| `mode`              | `number` | Lighting mode                              | `0`          |
+| `luminance`         | `number` | Light brightness                           | `80`         |
+| `speed`             | `number` | Lighting speed                             | `80`         |
+| `direction`         | `string` | Lighting direction `Forward` or `Backward` | `"Forward"`  |
+| `selectStaticColor` | `number` | Static color selection                     | `0`          |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -138,26 +141,29 @@ ServiceKeyboard.setLightingBase()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function setLightingBase() {
   try {
-    const result = await ServiceKeyboard.setLightingBase({
-      area: "Keyboard",
-      config: "Base",
-      data: {
-        open: "Open",
-        mode: 0,
-        luminance: 80,
-        speed: 80,
-        direction: "Forward",
-        selectStaticColor: 0
-      }
-    }, "SingleLighting");
-    console.log('设置灯光基础配置结果:', result);
+    const result = await ServiceKeyboard.setLightingBase(
+      {
+        area: 'Keyboard',
+        config: 'Base',
+        data: {
+          open: 'Open',
+          mode: 0,
+          luminance: 80,
+          speed: 80,
+          direction: 'Forward',
+          selectStaticColor: 0,
+        },
+      },
+      'SingleLighting',
+    );
+    console.log('Set the lighting basic configuration result:', result);
   } catch (error) {
-    console.error('设置灯光基础配置失败:', error);
+    console.error('Setting the lighting basic configuration failed:', error);
   }
 }
 
@@ -166,45 +172,45 @@ setLightingBase();
 
 ---
 
-## 获取灯光调色板配置
+## Get the lighting palette configuration
 
 ServiceKeyboard.getLightingPalette()
 
-**简要描述:**
-获取指定区域的灯光调色板配置信息。
+**Brief description:**
+Gets the lighting palette configuration information for the specified area.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述查询区域和配置类型的对象 |
-| `params.area` | `string` | 是 | 灯光区域，例如`Keyboard`,`Decorate1` |
-| `params.config` | `string` | 是 | 配置类型，例如 `Base`,`Palette`,`ColorCorrection` |
+| Parameter name  | Type     | Required | Description                                                      |
+| --------------- | -------- | -------- | ---------------------------------------------------------------- |
+| `params`        | `object` | Yes      | Object describing query area and configuration type              |
+| `params.area`   | `string` | Yes      | Lighting area, such as `Keyboard`,`Decorate1`                    |
+| `params.config` | `string` | Yes      | Configuration type, such as `Base`, `Palette`, `ColorCorrection` |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<ILightingPalette>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含灯光调色板配置信息的对象。
-* **解析对象结构 (`ILightingPalette`):**
+- **Overall Type:** `Promise<ILightingPalette>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the configuration information of the lighting palette.
+- **Resolve object structure (`ILightingPalette`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `staticColors` | `Array<IColorInfo>` | 静态颜色数组 | - |
+| Field Name     | Type                | Description        | Sample Value |
+| -------------- | ------------------- | ------------------ | ------------ |
+| `staticColors` | `Array<IColorInfo>` | Static Color Array | -            |
 
-**颜色信息结构 (`IColorInfo`):**
+**ColorInfo Structure (`IColorInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `255` |
-| `G` | `number` | 绿色分量值 (0-255) | `0` |
-| `B` | `number` | 蓝色分量值 (0-255) | `0` |
-| `H` | `number` | 亮度值 (0-255) | `255` |
+| Field Name | Type     | Description                   | Sample Value |
+| ---------- | -------- | ----------------------------- | ------------ |
+| `R`        | `number` | Red component value (0-255)   | `255`        |
+| `G`        | `number` | Green component value (0-255) | `0`          |
+| `B`        | `number` | Blue component value (0-255)  | `0`          |
+| `H`        | `number` | Brightness value (0-255)      | `255`        |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -263,18 +269,18 @@ ServiceKeyboard.getLightingPalette()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getLightingPalette() {
   try {
     const result = await ServiceKeyboard.getLightingPalette({
-      area: "Keyboard",
-      config: "Palette"
+      area: 'Keyboard',
+      config: 'Palette',
     });
-    console.log('灯光调色板配置:', result);
+    console.log('Light palette configuration:', result);
   } catch (error) {
-    console.error('获取灯光调色板配置失败:', error);
+    console.error('Failed to get the lighting palette configuration:', error);
   }
 }
 
@@ -283,55 +289,55 @@ getLightingPalette();
 
 ---
 
-## 设置灯光调色板配置
+## Set up lighting palette configuration
 
 ServiceKeyboard.setLightingPalette()
 
-**简要描述:**
-设置指定区域的灯光调色板配置信息。
+**Brief description:**
+Sets the lighting palette configuration information for the specified area.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述设置区域和配置的对象 |
-| `params.area` | `string` | 是 | 灯光区域，例如`Keyboard`,`Decorate1` |
-| `params.config` | `string` | 是 | 配置类型，例如 `Base`,`Palette`,`ColorCorrection` |
-| `params.data` | `object` | 是 | 要设置的调色板配置数据 |
-| `params.data.staticColors` | `Array<IColorInput>` | 是 | 静态颜色数组 |
+| Parameter name             | Type                 | Required | Description                                                      |
+| -------------------------- | -------------------- | -------- | ---------------------------------------------------------------- |
+| `params`                   | `object`             | Yes      | Object describing the setting area and configuration             |
+| `params.area`              | `string`             | Yes      | Lighting area, such as `Keyboard`,`Decorate1`                    |
+| `params.config`            | `string`             | Yes      | Configuration type, such as `Base`, `Palette`, `ColorCorrection` |
+| `params.data`              | `object`             | Yes      | Palette configuration data to set                                |
+| `params.data.staticColors` | `Array<IColorInput>` | Yes      | Static Color Array                                               |
 
-**颜色输入结构 (`IColorInput`):**
+**Color Input Structure (`IColorInput`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `255` |
-| `G` | `number` | 绿色分量值 (0-255) | `0` |
-| `B` | `number` | 蓝色分量值 (0-255) | `0` |
+| Field Name | Type     | Description                   | Sample Value |
+| ---------- | -------- | ----------------------------- | ------------ |
+| `R`        | `number` | Red component value (0-255)   | `255`        |
+| `G`        | `number` | Green component value (0-255) | `0`          |
+| `B`        | `number` | Blue component value (0-255)  | `0`          |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<ILightingPalette>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含设置后的灯光调色板配置信息的对象。
-* **解析对象结构 (`ILightingPalette`):**
+- **Overall Type:** `Promise<ILightingPalette>`
+- **Description:** Returns a `Promise`, which resolves to an object containing the set lighting palette configuration information.
+- **Resolve object structure (`ILightingPalette`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `staticColors` | `Array<IColorInfo>` | 静态颜色数组 | - |
+| Field Name     | Type                | Description        | Sample Value |
+| -------------- | ------------------- | ------------------ | ------------ |
+| `staticColors` | `Array<IColorInfo>` | Static Color Array | -            |
 
-**颜色信息结构 (`IColorInfo`):**
+**ColorInfo Structure (`IColorInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `255` |
-| `G` | `number` | 绿色分量值 (0-255) | `0` |
-| `B` | `number` | 蓝色分量值 (0-255) | `0` |
-| `H` | `number` | 亮度值 (0-255) | `0` |
+| Field Name | Type     | Description                   | Sample Value |
+| ---------- | -------- | ----------------------------- | ------------ |
+| `R`        | `number` | Red component value (0-255)   | `255`        |
+| `G`        | `number` | Green component value (0-255) | `0`          |
+| `B`        | `number` | Blue component value (0-255)  | `0`          |
+| `H`        | `number` | Brightness value (0-255)      | `0`          |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -390,164 +396,166 @@ ServiceKeyboard.setLightingPalette()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function setLightingPalette() {
   try {
     const result = await ServiceKeyboard.setLightingPalette({
-      area: "Keyboard",
-      config: "Palette",
+      area: 'Keyboard',
+      config: 'Palette',
       data: {
         staticColors: [
           {
             R: 0,
             G: 0,
-            B: 0
+            B: 0,
           },
           {
             R: 255,
             G: 0,
-            B: 0
+            B: 0,
           },
           {
             R: 0,
             G: 219,
-            B: 255
+            B: 255,
           },
           {
             R: 255,
             G: 255,
-            B: 0
+            B: 0,
           },
           {
             R: 0,
             G: 0,
-            B: 255
+            B: 255,
           },
           {
             R: 255,
             G: 0,
-            B: 255
+            B: 255,
           },
           {
             R: 0,
             G: 255,
-            B: 255
+            B: 255,
           },
           {
             R: 255,
             G: 255,
-            B: 255
-          }
-        ]
-      }
+            B: 255,
+          },
+        ],
+      },
     });
-    console.log('设置灯光调色板配置结果:', result);
+    console.log('Set the lighting palette configuration result:', result);
   } catch (error) {
-    console.error('设置灯光调色板配置失败:', error);
+    console.error('Setting the lighting palette configuration failed:', error);
   }
 }
 
 setLightingPalette();
 ```
 
-## 获取自定义灯光配置
+## Get custom lighting configuration
 
 ServiceKeyboard.getLightingCustom()
 
-**简要描述:**
-获取键盘的自定义灯光配置信息，返回一个二维数组，表示键盘上每个按键的RGB颜色值和自定义状态。
+**Brief description:**
+Gets the keyboard's custom lighting configuration information and returns a two-dimensional array representing the RGB color value and custom status of each key on the keyboard.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<Array<Array<ICustomLightingInfo>>>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个二维数组，每个元素代表键盘上对应位置的按键灯光信息。
-* **解析对象结构 (`ICustomLightingInfo`):**
+- **Overall Type:** `Promise<Array<Array<ICustomLightingInfo>>>`
+- **Description:** Returns a `Promise`, which is parsed into a two-dimensional array, with each element representing the key light information at the corresponding position on the keyboard.
+- **Resolve object structure (`ICustomLightingInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `0` |
-| `G` | `number` | 绿色分量值 (0-255) | `207` |
-| `B` | `number` | 蓝色分量值 (0-255) | `244` |
-| `isCustom` | `boolean` | 是否为自定义颜色 | `false` |
+| Field Name | Type      | Description                   | Sample Value |
+| ---------- | --------- | ----------------------------- | ------------ |
+| `R`        | `number`  | Red component value (0-255)   | `0`          |
+| `G`        | `number`  | Green component value (0-255) | `207`        |
+| `B`        | `number`  | Blue component value (0-255)  | `244`        |
+| `isCustom` | `boolean` | Whether it is a custom color  | `false`      |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 [
-    [
-        {
-            "R": 0,
-            "G": 207,
-            "B": 244,
-            "isCustom": false
-        },
-        // ... 更多按键
-    ],
-    // ... 更多行
-]
+  [
+    {
+      R: 0,
+      G: 207,
+      B: 244,
+      isCustom: false,
+    },
+    // ... More buttons
+  ],
+  // ... More
+];
 ```
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getLightingCustom() {
   try {
     const result = await ServiceKeyboard.getLightingCustom();
-    console.log('自定义灯光配置:', result);
-    // 可以遍历结果来获取每个按键的颜色信息
+    console.log('custom lighting configuration:', result);
+    // You can traverse the results to get the color information of each key
     result.forEach((row, rowIndex) => {
       row.forEach((key, colIndex) => {
-        console.log(`按键[${rowIndex}][${colIndex}]的颜色: R=${key.R}, G=${key.G}, B=${key.B}, 是否自定义=${key.isCustom}`);
+        console.log(
+          `Color of key[${rowIndex}][${colIndex}]: R=${key.R}, G=${key.G}, B=${key.B}, whether to customize=${key.isCustom}`,
+        );
       });
     });
   } catch (error) {
-    console.error('获取自定义灯光配置失败:', error);
+    console.error('Failed to get custom lighting configuration:', error);
   }
 }
 
 getLightingCustom();
 ```
 
-## 设置自定义灯光配置
+## Setting up custom lighting configurations
 
 ServiceKeyboard.setLightingCustom()
 
-**简要描述:**
-设置键盘的自定义灯光配置，可以为每个按键设置独立的RGB颜色值和自定义状态。
+**Brief description:**
+Set the keyboard's custom lighting configuration, and you can set independent RGB color values ​​and custom status for each key.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述设置区域和配置的对象 |
-| `params.area` | `string` | 是 | 灯光区域，例如`Keyboard` |
-| `params.protocol` | `string` | 是 | 协议类型，固定为`Custom` |
-| `params.data` | `Array<Array<ICustomLightingInfo>>` | 是 | 二维数组，表示键盘上每个按键的灯光配置 |
+| Parameter name    | Type                                | Required | Description                                                                  |
+| ----------------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------- |
+| `params`          | `object`                            | Yes      | Object describing the setting area and configuration                         |
+| `params.area`     | `string`                            | Yes      | Lighting area, such as `Keyboard`                                            |
+| `params.protocol` | `string`                            | Yes      | Protocol type, fixed to `Custom`                                             |
+| `params.data`     | `Array<Array<ICustomLightingInfo>>` | Yes      | 2D array representing the lighting configuration of each key on the keyboard |
 
-**按键灯光信息结构 (`ICustomLightingInfo`):**
+**Key light information structure (`ICustomLightingInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `0` |
-| `G` | `number` | 绿色分量值 (0-255) | `8` |
-| `B` | `number` | 蓝色分量值 (0-255) | `10` |
-| `isCustom` | `boolean` | 是否为自定义颜色 | `false` |
+| Field Name | Type      | Description                   | Sample Value |
+| ---------- | --------- | ----------------------------- | ------------ |
+| `R`        | `number`  | Red component value (0-255)   | `0`          |
+| `G`        | `number`  | Green component value (0-255) | `8`          |
+| `B`        | `number`  | Blue component value (0-255)  | `10`         |
+| `isCustom` | `boolean` | Whether it is a custom color  | `false`      |
 
-**参数示例:**
+**Sample example:**
 
 ```js
 {
@@ -561,105 +569,105 @@ ServiceKeyboard.setLightingCustom()
                 "B": 10,
                 "isCustom": false
             },
-            // ... 更多按键
+// ... More buttons
         ],
-        // ... 更多行
+// ... More
     ]
 }
 ```
 
 ---
 
-### 返回值
+### Return value
 
-此方法没有返回值。
+This method has no return value.
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function setLightingCustom() {
   try {
     const customLightingConfig = {
-      area: "Keyboard",
-      protocol: "Custom",
+      area: 'Keyboard',
+      protocol: 'Custom',
       data: [
         [
           {
             R: 0,
             G: 8,
             B: 10,
-            isCustom: false
+            isCustom: false,
           },
-          // ... 更多按键配置
+          // ... More key configuration
         ],
-        // ... 更多行配置
-      ]
+        // ... More line configuration
+      ],
     };
-    
+
     await ServiceKeyboard.setLightingCustom(customLightingConfig);
-    console.log('自定义灯光配置已设置');
+    console.log('Custom lighting configuration set');
   } catch (error) {
-    console.error('设置自定义灯光配置失败:', error);
+    console.error('Setting custom lighting configuration failed:', error);
   }
 }
 
 setLightingCustom();
 ```
 
-## 获取装饰灯1自定义灯光配置
+## Get Decorative Light 1 Custom Light Configuration
 
 ServiceKeyboard.getDecorate1Custom()
 
-**简要描述:**
-获取装饰灯1的自定义灯光配置信息，返回一个二维数组，表示装饰灯上每个LED的RGB颜色值和自定义状态。
+**Brief description:**
+Get the custom lighting configuration information of decorative light 1 and return a two-dimensional array representing the RGB color value and custom status of each LED on the decorative light.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述装饰灯尺寸的对象 |
-| `params.rows` | `number` | 是 | 装饰灯的行数 |
-| `params.cols` | `number` | 是 | 装饰灯的列数 |
-| `params.area` | `string` | 是 | 区域 | "Keyboard" | "Decorate1" | "Decorate2" | "Decorate3" | "Decorate4" | "Decorate5"
+| Parameter name | Type     | Required | Description                                     |
+| -------------- | -------- | -------- | ----------------------------------------------- | ---------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| `params`       | `object` | Yes      | Object describing the size of a decorative lamp |
+| `params.rows`  | `number` | Yes      | Number of rows of decorative lamps              |
+| `params.cols`  | `number` | Yes      | Number of columns for decorative lamps          |
+| `params.area`  | `string` | Yes      | Area                                            | "Keyboard" | "Decorate1" | "Decorate2" | "Decorate3" | "Decorate4" | "Decorate5" |
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<Array<Array<ICustomLightingInfo>>>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个二维数组，每个元素代表装饰灯上对应位置的LED灯光信息。
-* **解析对象结构 (`ICustomLightingInfo`):**
+- **Overall Type:** `Promise<Array<Array<ICustomLightingInfo>>>`
+- **Description:** Returns a `Promise`, which is parsed into a two-dimensional array, and each element represents the LED light information at the corresponding position on the decorative light.
+- **Resolve object structure (`ICustomLightingInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `128` |
-| `G` | `number` | 绿色分量值 (0-255) | `41` |
-| `B` | `number` | 蓝色分量值 (0-255) | `49` |
-| `isCustom` | `boolean` | 是否为自定义颜色 | `true` |
+| Field Name | Type      | Description                   | Sample Value |
+| ---------- | --------- | ----------------------------- | ------------ |
+| `R`        | `number`  | Red component value (0-255)   | `128`        |
+| `G`        | `number`  | Green component value (0-255) | `41`         |
+| `B`        | `number`  | Blue component value (0-255)  | `49`         |
+| `isCustom` | `boolean` | Whether it is a custom color  | `true`       |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 [
-    [
-        {
-            "R": 128,
-            "G": 41,
-            "B": 49,
-            "isCustom": true
-        },
-        // ... 更多LED
-    ]
-]
+  [
+    {
+      R: 128,
+      G: 41,
+      B: 49,
+      isCustom: true,
+    },
+    // ... More LEDs
+  ],
+];
 ```
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getDecorate1Custom() {
@@ -669,49 +677,49 @@ async function getDecorate1Custom() {
       cols: 22
       area:"Keyboard" | "Decorate1" | "Decorate2" | "Decorate3" | "Decorate4" | "Decorate5"
     });
-    console.log('装饰灯1自定义灯光配置:', result);
-    // 可以遍历结果来获取每个LED的颜色信息
+console.log('Decorative Light 1 Custom lighting configuration:', result);
+// You can traverse the results to get color information for each LED
     result.forEach((row, rowIndex) => {
       row.forEach((led, colIndex) => {
-        console.log(`LED[${rowIndex}][${colIndex}]的颜色: R=${led.R}, G=${led.G}, B=${led.B}, 是否自定义=${led.isCustom}`);
+console.log(`LED[${rowIndex}][${colIndex}]] color: R=${led.R}, G=${led.G}, B=${led.B}, whether to customize=${led.isCustom}`);
       });
     });
   } catch (error) {
-    console.error('获取装饰灯1自定义灯光配置失败:', error);
+console.error('Get decorative light 1 custom light configuration failed:', error);
   }
 }
 
 getDecorate1Custom();
 ```
 
-## 设置装饰灯1自定义灯光配置
+## Set Decorative Light 1 Custom Light Configuration
 
 ServiceKeyboard.setDecorate1Custom()
 
-**简要描述:**
-设置装饰灯1的自定义灯光配置，可以为每个LED设置独立的RGB颜色值和自定义状态。
+**Brief description:**
+Set the custom lighting configuration of decorative light 1, and you can set independent RGB color values ​​and custom status for each LED.
 
 ---
 
-### 参数
+### parameter
 
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| `params` | `object` | 是 | 描述设置区域和配置的对象 |
-| `params.area` | `string` | 是 | 灯光区域，固定为`Decorate1` |
-| `params.protocol` | `string` | 是 | 协议类型，固定为`Custom` |
-| `params.data` | `Array<Array<ICustomLightingInfo>>` | 是 | 二维数组，表示装饰灯上每个LED的灯光配置 |
+| Parameter name    | Type                                | Required | Description                                                                          |
+| ----------------- | ----------------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `params`          | `object`                            | Yes      | Object describing the setting area and configuration                                 |
+| `params.area`     | `string`                            | Yes      | Lighting area, fixed to `Decorate1`                                                  |
+| `params.protocol` | `string`                            | Yes      | Protocol type, fixed to `Custom`                                                     |
+| `params.data`     | `Array<Array<ICustomLightingInfo>>` | Yes      | 2D array representing the lighting configuration of each LED on the decorative light |
 
-**LED灯光信息结构 (`ICustomLightingInfo`):**
+**LED lighting information structure (`ICustomLightingInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `R` | `number` | 红色分量值 (0-255) | `128` |
-| `G` | `number` | 绿色分量值 (0-255) | `41` |
-| `B` | `number` | 蓝色分量值 (0-255) | `49` |
-| `isCustom` | `boolean` | 是否为自定义颜色 | `true` |
+| Field Name | Type      | Description                   | Sample Value |
+| ---------- | --------- | ----------------------------- | ------------ |
+| `R`        | `number`  | Red component value (0-255)   | `128`        |
+| `G`        | `number`  | Green component value (0-255) | `41`         |
+| `B`        | `number`  | Blue component value (0-255)  | `49`         |
+| `isCustom` | `boolean` | Whether it is a custom color  | `true`       |
 
-**参数示例:**
+**Sample example:**
 
 ```js
 {
@@ -725,7 +733,7 @@ ServiceKeyboard.setDecorate1Custom()
                 "B": 49,
                 "isCustom": true
             },
-            // ... 更多LED
+// ... More LEDs
         ]
     ]
 }
@@ -733,79 +741,79 @@ ServiceKeyboard.setDecorate1Custom()
 
 ---
 
-### 返回值
+### Return value
 
-此方法没有返回值。
+This method has no return value.
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function setDecorate1Custom() {
   try {
     const customLightingConfig = {
-      area: "Decorate1",
-      protocol: "Custom",
+      area: 'Decorate1',
+      protocol: 'Custom',
       data: [
         [
           {
             R: 128,
             G: 41,
             B: 49,
-            isCustom: true
+            isCustom: true,
           },
-          // ... 更多LED配置
-        ]
-      ]
+          // ... More LED configurations
+        ],
+      ],
     };
-    
+
     await ServiceKeyboard.setDecorate1Custom(customLightingConfig);
-    console.log('装饰灯1自定义灯光配置已设置');
+    console.log('Decorative Light 1 Custom Light Configuration Set');
   } catch (error) {
-    console.error('设置装饰灯1自定义灯光配置失败:', error);
+    console.error('Set decorative light 1 custom light configuration failed:', error);
   }
 }
 
 setDecorate1Custom();
 ```
 
-## 获取灯光区域信息
+## Get light area information
 
 ServiceKeyboard.getLightingArea()
 
-**简要描述:**
-获取键盘上所有灯光区域的信息，包括主键盘灯和装饰灯的数量、行列数等配置信息。
+**Brief description:**
+Get information about all lighting areas on the keyboard, including the number of main keyboard lights and decorative lights, rows and queues, and other configuration information.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<ILightingAreaInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含所有灯光区域信息的对象。
-* **解析对象结构 (`ILightingAreaInfo`):**
+- **Overall Type:** `Promise<ILightingAreaInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing all lighting area information.
+- **Resolve object structure (`ILightingAreaInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `total` | `number` | 灯光区域 | `2` |
-| `areas` | `Array<IAreaInfo>` | 灯光区域信息数组 | - |
+| Field Name | Type               | Description                  | Sample Value |
+| ---------- | ------------------ | ---------------------------- | ------------ |
+| `total`    | `number`           | Lighting area                | `2`          |
+| `areas`    | `Array<IAreaInfo>` | Light area information array | -            |
 
-**区域信息结构 (`IAreaInfo`):**
+**AreaInfo Structure (`IAreaInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `index` | `number` | 灯效区域索引 | `0` |
-| `count` | `number` | 灯效数量 | `20` |
-| `rows` | `number` | 行数 | `6` |
-| `cols` | `number` | 列数 | `15` |
+| Field Name | Type     | Description            | Sample Value |
+| ---------- | -------- | ---------------------- | ------------ |
+| `index`    | `number` | Lighting area index    | `0`          |
+| `count`    | `number` | Number of lamp effects | `20`         |
+| `rows`     | `number` | `route number          | `6`          |
+| `cols`     | `number` | Number of columns      | `15`         |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -827,64 +835,64 @@ ServiceKeyboard.getLightingArea()
 }
 ```
 
-### 区域说明
+### Area Description
 
-* `total` 值说明：
-  * `1`: 主键盘灯
-  * `2`: 装饰灯1
-  * `3`: 装饰灯2
+- `total` value description:
+- `1`: Main keyboard light
+- `2`: Decorative light 1
+- `3`: Decorative light 2
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getLightingArea() {
   try {
     const result = await ServiceKeyboard.getLightingArea();
-    console.log('灯光区域信息:', result);
-    
-    // 遍历所有灯光区域
-    result.areas.forEach(area => {
-      console.log(`区域索引 ${area.index}:`);
-      console.log(`- 灯效数量: ${area.count}`);
-      console.log(`- 行数: ${area.rows}`);
-      console.log(`- 列数: ${area.cols}`);
+    console.log('Light area information:', result);
+
+    // traverse all light areas
+    result.areas.forEach((area) => {
+      console.log(`area index ${area.index}:`);
+      console.log(`- Lamp effect quantity: ${area.count}`);
+      console.log(`- Number of rows: ${area.rows}`);
+      console.log(`- Number of columns: ${area.cols}`);
     });
   } catch (error) {
-    console.error('获取灯光区域信息失败:', error);
+    console.error('Failed to obtain light area information:', error);
   }
 }
 
 getLightingArea();
 ```
 
-## 获取双灯效状态
+## Get the dual lighting effect status
 
 ServiceKeyboard.getDoubleLighting()
 
-**简要描述:**
-获取键盘的双灯效状态配置信息。
+**Brief description:**
+Get the dual lighting status configuration information of the keyboard.
 
 ---
 
-### 参数
+### parameter
 
-此方法不需要参数。
+This method requires no parameters.
 
 ---
 
-### 返回值
+### Return value
 
-* **总体类型:** `Promise<IDoubleLightingInfo>`
-* **描述:** 返回一个 `Promise`，该 `Promise` 解析为一个包含双灯效状态信息的对象。
-* **解析对象结构 (`IDoubleLightingInfo`):**
+- **Overall Type:** `Promise<IDoubleLightingInfo>`
+- **Description:** Returns a `Promise`, which resolves to an object containing double-lighting status information.
+- **Resolve object structure (`IDoubleLightingInfo`):**
 
-| 字段名称 | 类型 | 描述 | 示例值 |
-|---------|------|------|--------|
-| `doubleLighting` | `number` | 双灯效状态 | `1` |
+| Field Name       | Type     | Description               | Sample Value |
+| ---------------- | -------- | ------------------------- | ------------ |
+| `doubleLighting` | `number` | Double lamp effect status | `1`          |
 
-**返回值示例:**
+**Return value example:**
 
 ```js
 {
@@ -894,15 +902,15 @@ ServiceKeyboard.getDoubleLighting()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getDoubleLighting() {
   try {
     const result = await ServiceKeyboard.getDoubleLighting();
-    console.log('双灯效状态:', result.doubleLighting);
+    console.log('Double lamp effect status:', result.doubleLighting);
   } catch (error) {
-    console.error('获取双灯效状态失败:', error);
+    console.error('Failed to obtain dual lighting effect status:', error);
   }
 }
 
@@ -911,31 +919,31 @@ getDoubleLighting();
 
 :::tip
 
-主要是用来控制单双灯位的命令
+Mainly used to control single and double lamp positions
 
 :::
 
-## 获取特殊灯位（空格灯）
+## Get special light positions (space lights)
 
 ServiceKeyboard.getSpecialLighting()
 
-**简要描述:**
-获取特殊灯位（空格键）灯珠数量，用于单独控制空格键位置的灯珠。
-
- ---
-
-### 参数
-
-此方法不需要参数。
+**Brief description:**
+Gets the number of special lamp positions (space bars) beads used to control the space bar positions individually.
 
 ---
 
-### 返回值
+### parameter
 
-* **总体类型:** `Promise<{ specialLighting: number }>`
-* **描述:** 返回空格键位置的灯珠数量。
+This method requires no parameters.
 
-**返回值示例:**
+---
+
+### Return value
+
+- **Overall type:** `Promise<{ specialLighting: number }>`
+- **Description:** Returns the number of beads at the space bar position.
+
+**Return value example:**
 
 ```js
 {
@@ -945,15 +953,15 @@ ServiceKeyboard.getSpecialLighting()
 
 ---
 
-### 使用示例
+### Example of usage
 
 ```typescript
 async function getSpecialLighting() {
   try {
     const result = await ServiceKeyboard.getSpecialLighting();
-    console.log('空格键灯珠数量 specialLighting:', result.specialLighting);
+    console.log('Space bar light bead quantity specialLighting:', result.specialLighting);
   } catch (error) {
-    console.error('获取空格键灯珠数量失败:', error);
+    console.error('Failed to get the number of space bar beads:', error);
   }
 }
 
@@ -962,6 +970,6 @@ getSpecialLighting();
 
 ::::tip
 
-主要用于读取空格键位置可控灯珠的数量。
+Mainly used to read the space bar position controllable number of lamp beads.
 
 ::::
