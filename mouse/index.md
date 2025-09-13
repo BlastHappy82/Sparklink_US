@@ -1,3 +1,3 @@
-# 鼠标SDK
+# Mouse SDK
 
-文档正在构建中。。。 敬请期待!!!
+Documentation is currently under construction... stay tuned!
