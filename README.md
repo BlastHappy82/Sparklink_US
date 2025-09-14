@@ -1,9 +1,17 @@
-# Sparklink PlayJoy Documentation
+# Sparklink_US Fork Documentation
 
-## Company Profile
+## Goals:
 
-Sparklink PlayJoy Technology Co., Ltd. is a national high-tech enterprise offering keyboard technology consulting and product customization services. We focus on the research and development of keyboard solutions, and our team is deeply familiar with market and technology trends. With a customer-centric approach, we provide optimal design solutions, trustworthy business services, and professional technical support, continually striving for excellence in the keyboard industry.
+Sparklink is hit or miss when it comes to feature improvement or updates. I forked this repo from the Chinese Repo and converted to english to hopefully a featurefull webdriver that will be highly compatible with any sparklink based webdriver keyboard.
+
+Goals:
+Translate to english: Complete
+Create solution for global key capture for macro recording: In Work
+allow advanced keys on function layers: Future TBD
+per layer RGB control(FN0 different than FN1): Future TBD
+Webdriver www. address that can use published SDK: Future TBD
+Per key analog axis for controller emulation: Future TBD
 
 ## Contact
 
-Email <sparklinkplayjoy@163.com>
+Discord<https://discord.com/users/1157001270398292038>
