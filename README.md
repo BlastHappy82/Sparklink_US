@@ -1,9 +1,15 @@
-# Sparklink PlayJoy Documentation
+# Sparklink_US Fork Documentation
 
-## Company Profile
+## Intro
+Sparklink is the driver behind many brands of keyboards and it suffers from very few feature updates and even worse is that a lot of brands are not linked to the main hub for sparklink so they may not get any updates at all. So I forked from the public sparklink repo to get an open source project and implement some improvements and fixes. Contributors Welcome
 
-Sparklink PlayJoy Technology Co., Ltd. is a national high-tech enterprise offering keyboard technology consulting and product customization services. We focus on the research and development of keyboard solutions, and our team is deeply familiar with market and technology trends. With a customer-centric approach, we provide optimal design solutions, trustworthy business services, and professional technical support, continually striving for excellence in the keyboard industry.
+## Goals
+Translate to englis: copmplete
+Fix Macros for global key capture outside of browser
+Allow advanced keys and macros to be assigned to function layers
+Per layer RGB Control (FN0 can be different than FN1)
+Per key axis analog control (controller emulation like wooting)
 
 ## Contact
 
-Email <sparklinkplayjoy@163.com>
+discord <https://discord.com/users/1157001270398292038>
